@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public Camera mainCamera;
     private NavMeshAgent agent;
 
+    private float rotationSpeed = 50f;
     private void Awake()
     {
         TryGetComponent<NavMeshAgent>(out agent);
@@ -22,6 +23,12 @@ public class PlayerController : MonoBehaviour
             if(Physics.Raycast(ray, out hit))
             {
                 agent.SetDestination(hit.point);
+            }
+
+            if(agent.velocity.sqrMagnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
         }
     }
