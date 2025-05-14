@@ -19,14 +19,13 @@ public class PlayerController : MonoBehaviour
         TryGetComponent<PlayerMovement>(out playerMovement);
         TryGetComponent<PlayerAttack>(out playerAttack);    
     }
-
+    
     void Update()
     {
         if (Mouse.current.rightButton.wasPressedThisFrame)
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.collider.CompareTag("Enemy"))
@@ -41,8 +40,8 @@ public class PlayerController : MonoBehaviour
                 }
 
             }
+           
         }
-
     }
 
     

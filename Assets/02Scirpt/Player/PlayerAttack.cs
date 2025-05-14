@@ -6,21 +6,27 @@ public class PlayerAttack : MonoBehaviour
 {
     private float attackRange = 5f;
     private float attackCoolDown = 1f;
-    private float lastAttackTime = -999;
+    private float lastAttackTime = -999f;
     private Transform currentTarget;
     private float rotSpeed = 480f;
     private bool isAttacking = false;
     private float attackDuration = 0.5f;
     private float attackEndTime = 0f;
     private NavMeshAgent agent;
+
+    private PlayerAnimController playerAnimController;
+
+    [SerializeField] GameObject prefabs;
+    [SerializeField] Transform firePoint;
     private void Awake()
     {
         TryGetComponent<NavMeshAgent>(out agent);
+        TryGetComponent<PlayerAnimController>(out playerAnimController);
     }
     void Update()
     {
         //if (isAttacking)
-        //{
+        //{¼­¼­È÷ µ¹¾Æ°¡ Å¸°Ù ÃÄ´Ùº¸±â
         //    TargetLookat();
 
         //    if(Time.time >= attackEndTime)
@@ -48,6 +54,9 @@ public class PlayerAttack : MonoBehaviour
             {
                 Debug.Log("°ø°Ý");
                 lastAttackTime = Time.time;
+                
+                playerAnimController.Attack();
+                Fire(currentTarget);
 
                 isAttacking = true;
                 attackEndTime = Time.time + attackDuration;
@@ -66,19 +75,24 @@ public class PlayerAttack : MonoBehaviour
     {
         currentTarget = null;
     }
-    void TargetLookat()
+    //void TargetLookat()
+    //{
+    //    if (currentTarget == null)
+    //        return;
+
+    //    Vector3 dir = (currentTarget.position - transform.position).normalized;
+    //    dir.y = 0f;
+
+    //    if (dir == Vector3.zero) return;
+
+    //    Quaternion targetRotation = Quaternion.LookRotation(dir);
+    //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
+    //    Debug.Log("·è¾Ü È£Ãâ");
+    //}
+
+    public void Fire(Transform target)
     {
-        if (currentTarget == null)
-            return;
-
-        Vector3 dir = (currentTarget.position - transform.position).normalized;
-        dir.y = 0f;
-
-        if (dir == Vector3.zero) return;
-
-        Quaternion targetRotation = Quaternion.LookRotation(dir);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
-        Debug.Log("·è¾Ü È£Ãâ");
-
+        GameObject proj = Instantiate(prefabs, firePoint.position, Quaternion.identity);
+        proj.GetComponent<Projectile>().initTarget(currentTarget);
     }
 }

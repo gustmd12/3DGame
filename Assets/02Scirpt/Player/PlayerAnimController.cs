@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class PlayerAnimController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    Animator animator;
+    
     void Start()
     {
-        
+        TryGetComponent<Animator>(out animator);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void PlayerMove(bool isMoving)
     {
-        
+        animator.SetBool("Move", isMoving);
+    }
+
+    public void Attack()
+    {
+        animator.SetTrigger("Attack");
     }
 }
