@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
                     playerAttack.SetTarget(hit.collider.transform);
                     currentTarget = hit.collider.transform;
                     agent.SetDestination(currentTarget.transform.position);
+
                 }
                 else
                 {

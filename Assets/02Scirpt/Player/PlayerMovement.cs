@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
     }
     
     void RotationUpdate()
-    {
+    {// agent.updateRotation = false;로 인한 재설정
         RaycastHit hit;
 
         if(Physics.Raycast (transform.position + Vector3.up, Vector3.down, out hit,2f))
