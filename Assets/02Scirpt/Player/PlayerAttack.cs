@@ -66,6 +66,13 @@ public class PlayerAttack : MonoBehaviour
 
     }
     
+    public void StopChar()
+    {
+        agent.ResetPath();
+    }
+
+    
+
     public void SetTarget(Transform target)
     {
         currentTarget = target;

@@ -48,4 +48,21 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, slopeRotation, Time.deltaTime * 10f);
         }
     }
+
+
+    public void MoveCast(Targetable target, float attackRange)
+    {
+        float dist = Vector3.Distance(transform.position, target.transform.position);
+        if (dist >= attackRange)
+        {
+            agent.SetDestination(target.transform.position);
+            agent.stoppingDistance = attackRange - 0.1f;
+        }
+        else
+        {
+            agent.ResetPath();
+        }
+        
+    }
+
 }

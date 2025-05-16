@@ -7,6 +7,7 @@ public class ProjectileSkill : SkillBase
     private float speed = 10f;
 
     Player player;
+    
 
     public override void Cast(GameObject caster)
     {
@@ -24,12 +25,12 @@ public class ProjectileSkill : SkillBase
 
                 Vector3 dir = (target.GetTargetPoint() - firePoint.position).normalized;
 
-
                 proj.GetComponent<TargetProjectile>().Init(dir, speed);
+                proj.GetComponent<TargetProjectile>().initTarget(target.transform);
 
                 target.OnTargeted();
 
-                ResetCooldown();
+                
             }
         }
     }

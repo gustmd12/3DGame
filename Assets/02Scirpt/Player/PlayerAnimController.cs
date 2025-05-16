@@ -18,4 +18,9 @@ public class PlayerAnimController : MonoBehaviour
     {
         animator.SetTrigger("Attack");
     }
+
+    public void QSkill()
+    {
+        animator.SetTrigger("QSkill");
+    }
 }
