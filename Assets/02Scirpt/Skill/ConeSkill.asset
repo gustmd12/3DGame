@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 459ba4ba2effad546a89a90ddba07cc1, type: 3}
+  m_Name: ConeSkill
+  m_EditorClassIdentifier: 
+  skillName: ConeSkill
+  cooldown: 5
+  manaCost: 20
+  range: 6
+  angle: 60
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  effectpre: {fileID: 8905047190402175742, guid: 2742c24d728ba8344986d2f827746965, type: 3}

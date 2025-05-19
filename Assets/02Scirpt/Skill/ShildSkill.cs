@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class ShildSkill : MonoBehaviour
+[CreateAssetMenu(fileName = "ShildSkill", menuName = "Scriptable Objects/ShildSkill")]
+public class ShildSkill : SkillBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Cast(GameObject caster, Targetable target)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }

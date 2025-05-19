@@ -23,4 +23,9 @@ public class PlayerAnimController : MonoBehaviour
     {
         animator.SetTrigger("QSkill");
     }
+
+    public void WSkill()
+    {
+        animator.SetTrigger("WSkill");
+    }
 }

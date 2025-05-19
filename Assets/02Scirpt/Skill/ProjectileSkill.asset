@@ -15,4 +15,4 @@ MonoBehaviour:
   skillName: TargetingSkill
   cooldown: 5
   manaCost: 15
-  Fireprefabs: {fileID: 1725317912486240, guid: e55149ba6f4d00741984987e258c3378, type: 3}
+  Fireprefabs: {fileID: 1024214072490390, guid: d383195b63305294fa0b3354e7cfd563, type: 3}

@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class AreaSkill : MonoBehaviour
+[CreateAssetMenu(fileName = "AreaSkill", menuName = "Scriptable Objects/AreaSkill")]
+public class AreaSkill : SkillBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Cast(GameObject caster, Targetable target)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }

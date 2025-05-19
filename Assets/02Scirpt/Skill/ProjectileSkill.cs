@@ -9,30 +9,19 @@ public class ProjectileSkill : SkillBase
     Player player;
     
 
-    public override void Cast(GameObject caster)
+    public override void Cast(GameObject caster, Targetable target)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Transform firePoint = caster.transform.Find("FirePoint");
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Targetable target = hit.collider.GetComponent<Targetable>();
+        GameObject proj = Instantiate(Fireprefabs, firePoint.position, Quaternion.identity);
+        Vector3 dir = (target.GetTargetPoint() - firePoint.position).normalized;
 
-            if (target != null)
-            {
-                Transform firePoint = caster.transform.Find("FirePoint");
+        proj.GetComponent<TargetProjectile>().Init(dir, speed,target.transform);
 
-                GameObject proj = Instantiate(Fireprefabs, firePoint.position, Quaternion.identity);
+        target.OnTargeted();
 
-                Vector3 dir = (target.GetTargetPoint() - firePoint.position).normalized;
-
-                proj.GetComponent<TargetProjectile>().Init(dir, speed);
-                proj.GetComponent<TargetProjectile>().initTarget(target.transform);
-
-                target.OnTargeted();
-
-                
-            }
-        }
+        Debug.Log("스킬 발동");
+        
     }
 
     private void Awake()

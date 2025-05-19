@@ -11,7 +11,7 @@ public abstract class SkillBase : ScriptableObject
 
     private float Cooldown => cooldown;
 
-    public abstract void Cast(GameObject caster);
+    public abstract void Cast(GameObject caster, Targetable target);
 
     public void UpdateCooldown()
     {

@@ -8,16 +8,14 @@ public class TargetProjectile : MonoBehaviour
 
     private Vector3 direction;
     private float speed;
-    public void Init(Vector3 dir, float spd)
+    public void Init(Vector3 dir, float spd, Transform _target)
     {
         direction = dir;
-        speed = spd;
+        speed = spd; 
+        target = _target;
 
     }
-    public void initTarget(Transform _target)
-    {
-        target = _target;
-    }
+    
     private void Update()
     {
         transform.position += direction * speed * Time.deltaTime;

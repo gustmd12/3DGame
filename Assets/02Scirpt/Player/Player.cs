@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
         if (curMP >= amount)
         {
             curMP -= amount;
-            Debug.Log("마나 있음");
+            
         }
         else
         {

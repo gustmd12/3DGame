@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Targetable : MonoBehaviour
 {
-    public string Name;
+    
 
     public Vector3 GetTargetPoint()
     {

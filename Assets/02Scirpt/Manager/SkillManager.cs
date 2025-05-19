@@ -53,13 +53,14 @@ public class SkillManager : MonoBehaviour
                 
                 player.UseMana(curSkill.manaCost);
                 cooldownTimer[curSkillindex] = curSkill.cooldown;
-                curSkill.Cast(_player);
+                curSkill.Cast(_player, curTarget);
                 playerAnimController.QSkill();
 
                 curTarget = null;
                 curSkill = null;
                 isMovingtoCast = false;
                 curSkillindex = -1;
+                
             }
         }
     }
@@ -70,7 +71,7 @@ public class SkillManager : MonoBehaviour
 
         if (cooldownTimer[index] > 0f)
         {
-            Debug.Log($"{skill.skillName} 쿨다운 중 : {cooldownTimer}");
+            Debug.Log($"{skill.skillName} 쿨다운 중 : {cooldownTimer[index]:F2}");
             return;
         }
 
@@ -81,12 +82,25 @@ public class SkillManager : MonoBehaviour
             return;
         }
 
-        skill.Cast(_player);
-        
+        if(index == 1)
+        {// 스킬시전 방향 바라보기
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                Vector3 Targetdir = hit.point - _player.transform.position;
+                Targetdir.y = 0f;
+                _player.transform.LookAt(hit.point);
+            }
+        }
+
+
+        skill.Cast(_player,null);
+        playerAttack.StopChar();
         
         player.UseMana(skill.manaCost);
         cooldownTimer[index] = skill.cooldown;
-
+        playerAnimController.WSkill();
         
     }
 
@@ -120,13 +134,14 @@ public class SkillManager : MonoBehaviour
                 if (dist <= attackRange)
                 {
                     playerAttack.StopChar();
-                    skill.Cast(_player);
+                    skill.Cast(_player,target);
 
                     _player.transform.LookAt(target.transform.position);
                     playerAnimController.QSkill();
 
                     player.UseMana(skill.manaCost);
                     cooldownTimer[index] = skill.cooldown;
+                    
                 }
                 else
                 {
@@ -135,6 +150,7 @@ public class SkillManager : MonoBehaviour
                     curSkillindex = index;
                     isMovingtoCast = true;
                     MoveCast(target,attackRange);
+                    
                 }
             }
             else
@@ -153,8 +169,6 @@ public class SkillManager : MonoBehaviour
             agent.SetDestination(target.transform.position);
             
         }
-        
-        
     }
 
     void HandleInput()
