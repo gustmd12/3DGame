@@ -1577,6 +1577,7 @@ GameObject:
   - component: {fileID: 7468729522487394865}
   - component: {fileID: 5125028636218980814}
   - component: {fileID: 6843259872957018945}
+  - component: {fileID: 1596581667457122880}
   m_Layer: 0
   m_Name: MaleCharacterPolyart
   m_TagString: Player
@@ -1716,6 +1717,18 @@ MonoBehaviour:
   maxMP: 100
   curHP: 0
   curMP: 0
+--- !u!114 &1596581667457122880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352958571798197664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff3cca318bab76049a743e927ac2bd1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5691243874327788079
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,12 +8,14 @@ public class TargetProjectile : MonoBehaviour
 
     private Vector3 direction;
     private float speed;
-    public void Init(Vector3 dir, float spd, Transform _target)
+    private GameObject hitef;
+
+    public void Init(Vector3 dir, float spd, Transform _target, GameObject hit)
     {
         direction = dir;
         speed = spd; 
         target = _target;
-
+        hitef = hit;
     }
     
     private void Update()
@@ -24,6 +26,7 @@ public class TargetProjectile : MonoBehaviour
         if (dist < 0.3f)
         {
             Destroy(gameObject);
+            Instantiate(hitef,target);
         }
     }
 

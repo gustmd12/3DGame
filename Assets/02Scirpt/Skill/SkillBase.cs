@@ -13,26 +13,26 @@ public abstract class SkillBase : ScriptableObject
 
     public abstract void Cast(GameObject caster, Targetable target);
 
-    public void UpdateCooldown()
-    {
-        if(currentCooldown > 0f)
-        {
-            currentCooldown -= Time.deltaTime;
-        }
-    }
+    //public void UpdateCooldown()
+    //{
+    //    if(currentCooldown > 0f)
+    //    {
+    //        currentCooldown -= Time.deltaTime;
+    //    }
+    //}
 
-    public bool IsCooldownComplete()
-    {
-        return currentCooldown <= 0f;
-    }
+    //public bool IsCooldownComplete()
+    //{
+    //    return currentCooldown <= 0f;
+    //}
 
-    public void ResetCooldown()
-    {
-        currentCooldown = cooldown;
-    }
+    //public void ResetCooldown()
+    //{
+    //    currentCooldown = cooldown;
+    //}
 
-    public bool CanUseSkill(int currentMana)
-    {
-        return currentMana >= manaCost;
-    }
+    //public bool CanUseSkill(int currentMana)
+    //{
+    //    return currentMana >= manaCost;
+    //}
 }

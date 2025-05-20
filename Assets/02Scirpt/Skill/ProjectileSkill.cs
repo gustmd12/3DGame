@@ -5,7 +5,7 @@ public class ProjectileSkill : SkillBase
 {
     public GameObject Fireprefabs;
     private float speed = 10f;
-
+    [SerializeField] GameObject HitPrefab;
     Player player;
     
 
@@ -16,7 +16,7 @@ public class ProjectileSkill : SkillBase
         GameObject proj = Instantiate(Fireprefabs, firePoint.position, Quaternion.identity);
         Vector3 dir = (target.GetTargetPoint() - firePoint.position).normalized;
 
-        proj.GetComponent<TargetProjectile>().Init(dir, speed,target.transform);
+        proj.GetComponent<TargetProjectile>().Init(dir, speed,target.transform,HitPrefab);
 
         target.OnTargeted();
 

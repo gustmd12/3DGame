@@ -15,3 +15,8 @@ MonoBehaviour:
   skillName: AreaSkill
   cooldown: 30
   manaCost: 25
+  radius: 2
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  HitAreaPre: {fileID: 123640, guid: 9242b15a276bc5a4babd09239e5fa709, type: 3}

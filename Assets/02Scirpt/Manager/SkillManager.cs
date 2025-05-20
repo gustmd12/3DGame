@@ -1,7 +1,11 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class SkillManager : MonoBehaviour
@@ -56,13 +60,18 @@ public class SkillManager : MonoBehaviour
                 curSkill.Cast(_player, curTarget);
                 playerAnimController.QSkill();
 
-                curTarget = null;
-                curSkill = null;
-                isMovingtoCast = false;
-                curSkillindex = -1;
-                
+
+                SetSKill();
             }
         }
+    }
+
+    void SetSKill()
+    {
+        curTarget = null;
+        curSkill = null;
+        isMovingtoCast = false;
+        curSkillindex = -1;
     }
 
     void TryCastSkill(int index)
@@ -84,6 +93,7 @@ public class SkillManager : MonoBehaviour
 
         if(index == 1)
         {// 스킬시전 방향 바라보기
+            playerAnimController.WSkill();
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if (Physics.Raycast(ray, out RaycastHit hit))
@@ -94,14 +104,47 @@ public class SkillManager : MonoBehaviour
             }
         }
 
+        if(index == 3)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if(Physics.Raycast(ray, out RaycastHit hit, 100f))
+            {
+                Vector3 targetPosition = hit.point;
+
+                AreaSkill areaSkill = skill as AreaSkill;
+                if (areaSkill != null)
+                {
+                    Vector3 dir = targetPosition - _player.transform.position;
+                    dir.y = 0f;
+                    _player.transform.forward = dir;
+                    StartCoroutine(delaySkill(areaSkill, targetPosition));
+                    //areaSkill.CastatPosition(_player, targetPosition);
+                    //StartCoroutine(HideRangeCoroutine(areaSkill, targetPosition));
+                    playerAnimController.RSkill();
+
+                    Debug.Log("R스킬 시전");
+                }
+            }
+            player.UseMana(skill.manaCost);
+            cooldownTimer[index] = skill.cooldown;
+            return;
+        }
+
 
         skill.Cast(_player,null);
         playerAttack.StopChar();
         
         player.UseMana(skill.manaCost);
         cooldownTimer[index] = skill.cooldown;
-        playerAnimController.WSkill();
         
+        
+    }
+
+    private IEnumerator delaySkill(AreaSkill areaSkill, Vector3 targetPosition)
+    {
+        yield return new WaitForSeconds(0.5f);
+        areaSkill.CastatPosition(_player, targetPosition);
     }
 
     void TargetSkill(int index)
@@ -189,4 +232,9 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+
+    //private IEnumerator HideRangeCoroutine(AreaSkill areaSkill, Vector3 targetPosition)
+    //{
+    //    yield return areaSkill.HideRange(_player, targetPosition);
+    //}
 }

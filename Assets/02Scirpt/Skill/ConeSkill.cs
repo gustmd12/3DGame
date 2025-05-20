@@ -19,6 +19,7 @@ public class ConeSkill : SkillBase
         GameObject fx = Instantiate(effectpre, effectPos, rot);
         GameObject.Destroy(fx, 0.7f);
 
+
         Collider[] hits = Physics.OverlapSphere(origin, range, targetMask);
 
         foreach (Collider hit in hits )
