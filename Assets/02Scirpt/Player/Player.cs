@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
     public int curHP;
     public int curMP;
 
+    public Action OnManaChanged;
 
     private void Awake()
     {
@@ -24,7 +26,7 @@ public class Player : MonoBehaviour
         if (curMP >= amount)
         {
             curMP -= amount;
-            
+            OnManaChanged?.Invoke();
         }
         else
         {
@@ -32,4 +34,6 @@ public class Player : MonoBehaviour
         }
             
     }
+
+    
 }

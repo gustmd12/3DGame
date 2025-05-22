@@ -122,6 +122,7 @@ public class SkillManager : MonoBehaviour
                     //areaSkill.CastatPosition(_player, targetPosition);
                     //StartCoroutine(HideRangeCoroutine(areaSkill, targetPosition));
                     playerAnimController.RSkill();
+                    agent.isStopped = true;
 
                     Debug.Log("R스킬 시전");
                 }
@@ -145,6 +146,8 @@ public class SkillManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         areaSkill.CastatPosition(_player, targetPosition);
+        yield return new WaitForSeconds(1f);
+        agent.isStopped = false;
     }
 
     void TargetSkill(int index)
