@@ -31,16 +31,27 @@ public class SkillManager : MonoBehaviour
     private int curSkillindex;
     private bool isMovingtoCast;
 
+    [SerializeField] SkillCooldown skillCooldown;
+
+    UIManager uimanager;
 
     private void Awake()
     {
-        
+        uimanager = FindAnyObjectByType<UIManager>();
         _player = GameObject.Find("Player");
         player = _player.GetComponent<Player>();
         playerAttack = _player.GetComponent<PlayerAttack>();
         playerMovement = _player.GetComponent<PlayerMovement>();
         agent = _player.GetComponent<NavMeshAgent>();
         playerAnimController = _player.GetComponent<PlayerAnimController>();
+    }
+
+    private void Start()
+    {
+        for(int i = 0; i < euqippedSkills.Length; i++)
+        {
+            uimanager.SetMana(i,euqippedSkills[i]);
+        }
     }
 
     private void Update()
@@ -232,6 +243,17 @@ public class SkillManager : MonoBehaviour
             if(cooldownTimer[i] > 0f)
             {
                 cooldownTimer[i] -= Time.deltaTime;
+
+                if (cooldownTimer[i] < 0f)
+                    cooldownTimer[i] = 0f;
+
+                float ratio = cooldownTimer[i] / euqippedSkills[i].cooldown;
+                float remaing = cooldownTimer[i];
+                skillCooldown.CoolDownUpdate(i, ratio, remaing);
+            }
+            else
+            {
+                skillCooldown.CoolDownUpdate(i, 0f, cooldownTimer[i]);
             }
         }
     }

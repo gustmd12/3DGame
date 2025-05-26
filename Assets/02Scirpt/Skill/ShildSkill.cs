@@ -3,8 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ShildSkill", menuName = "Scriptable Objects/ShildSkill")]
 public class ShildSkill : SkillBase
 {
-    public float shildAmount = 30f;
-    public float duration = 5f;
+    private float shildAmount = 30f;
+    private float duration = 5f;
 
     [SerializeField] GameObject shildPre;
     public override void Cast(GameObject caster, Targetable target)
