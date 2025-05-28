@@ -14,7 +14,8 @@ public class UIManager : MonoBehaviour
     TextMeshProUGUI hpText;
     
     [SerializeField] TextMeshProUGUI[] skillManaText;
-    
+
+    EventBus eventBus;
 
     SkillManager skillManager;
     
@@ -30,7 +31,7 @@ public class UIManager : MonoBehaviour
         manaText = GameObject.Find("ManaText").GetComponent<TextMeshProUGUI>();
         hpText = GameObject.Find("HpText").GetComponent<TextMeshProUGUI>();
         
-        
+        eventBus = FindAnyObjectByType<EventBus>();
 
         InitMana(player.maxMP);
     }
@@ -46,12 +47,12 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        player.OnManaChanged += UpdateMana;
+        eventBus.OnManaChanged += UpdateMana;
     }
 
     private void OnDisable()
     {
-        player.OnManaChanged -= UpdateMana;
+        eventBus.OnManaChanged -= UpdateMana;
     }
 
 

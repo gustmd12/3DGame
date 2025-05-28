@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
 
     private PlayerMovement playerMovement;
     private PlayerAttack playerAttack;
+
+
+
     private void Awake()
     {
         TryGetComponent<NavMeshAgent>(out agent);

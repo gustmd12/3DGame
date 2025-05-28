@@ -21,7 +21,6 @@ public class ProjectileSkill : SkillBase
         target.OnTargeted();
 
         Debug.Log("스킬 발동");
-        
     }
 
     private void Awake()

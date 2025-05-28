@@ -10,6 +10,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class SkillManager : MonoBehaviour
 {
+
     public SkillBase[] euqippedSkills = new SkillBase[4];
 
     private float[] cooldownTimer = new float[4];
@@ -34,6 +35,43 @@ public class SkillManager : MonoBehaviour
     [SerializeField] SkillCooldown skillCooldown;
 
     UIManager uimanager;
+
+    
+    private Dictionary<KeyCode, int> keySkillmap = new Dictionary<KeyCode, int>
+    {
+        {KeyCode.Q, 0},
+        {KeyCode.W, 1},
+        {KeyCode.E, 2},
+        {KeyCode.R, 3}
+    };
+
+    private void HandleInput()
+    {
+        foreach (var entry in keySkillmap)
+        {
+            if(Input.GetKeyDown(entry.Key))
+            {
+                int skillIndex = entry.Value;
+                SkillBase skill = euqippedSkills[skillIndex];
+
+                switch(skill.skilltype)
+                {
+                    case SkillBase.SkillType.Target:
+                        TargetSkill(skillIndex);
+                        break;
+                    case SkillBase.SkillType.Direction:
+                    case SkillBase.SkillType.Self:
+                    case SkillBase.SkillType.Area:
+                        TryCastSkill(skillIndex);
+                        break;
+                    default:
+                        Debug.Log("알수없는 스킬타입");
+                        break;
+                }
+
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -103,44 +141,13 @@ public class SkillManager : MonoBehaviour
         }
 
         if(index == 1)
-        {// 스킬시전 방향 바라보기
+        {
             playerAnimController.WSkill();
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                Vector3 Targetdir = hit.point - _player.transform.position;
-                Targetdir.y = 0f;
-                _player.transform.LookAt(hit.point);
-            }
         }
 
         if(index == 3)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(ray, out RaycastHit hit, 100f))
-            {
-                Vector3 targetPosition = hit.point;
-
-                AreaSkill areaSkill = skill as AreaSkill;
-                if (areaSkill != null)
-                {
-                    Vector3 dir = targetPosition - _player.transform.position;
-                    dir.y = 0f;
-                    _player.transform.forward = dir;
-                    StartCoroutine(delaySkill(areaSkill, targetPosition));
-                    //areaSkill.CastatPosition(_player, targetPosition);
-                    //StartCoroutine(HideRangeCoroutine(areaSkill, targetPosition));
-                    playerAnimController.RSkill();
-                    agent.isStopped = true;
-
-                    Debug.Log("R스킬 시전");
-                }
-            }
-            player.UseMana(skill.manaCost);
-            cooldownTimer[index] = skill.cooldown;
-            return;
+            playerAnimController.RSkill();
         }
 
 
@@ -153,10 +160,8 @@ public class SkillManager : MonoBehaviour
         
     }
 
-    private IEnumerator delaySkill(AreaSkill areaSkill, Vector3 targetPosition)
+    private IEnumerator delaySkill()
     {
-        yield return new WaitForSeconds(0.5f);
-        areaSkill.CastatPosition(_player, targetPosition);
         yield return new WaitForSeconds(1f);
         agent.isStopped = false;
     }
@@ -228,14 +233,6 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    void HandleInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Q)) TargetSkill(0); 
-        if (Input.GetKeyDown(KeyCode.W)) TryCastSkill(1); 
-        if (Input.GetKeyDown(KeyCode.E)) TryCastSkill(2); 
-        if (Input.GetKeyDown(KeyCode.R)) TryCastSkill(3); 
-    }
-
     void HandleCoolDowns()
     {
         for(int i=  0; i<cooldownTimer.Length; i++)
@@ -258,8 +255,4 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    //private IEnumerator HideRangeCoroutine(AreaSkill areaSkill, Vector3 targetPosition)
-    //{
-    //    yield return areaSkill.HideRange(_player, targetPosition);
-    //}
 }

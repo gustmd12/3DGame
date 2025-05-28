@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5db1ee0c443d914fa64a6701cc838bf, type: 3}
-  m_Name: ShildSkill
+  m_Script: {fileID: 11500000, guid: 4c0c09a9992cbd848b83dd5a54dc439d, type: 3}
+  m_Name: QSkill
   m_EditorClassIdentifier: 
-  skillName: ShilldSkill
-  cooldown: 8
-  manaCost: 10
-  skilltype: 2
-  shildPre: {fileID: 173814, guid: 810eb771809ba56409dd29eab937ddb2, type: 3}
+  animationName: 
+  events: []

@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
     public int curHP;
     public int curMP;
 
-    public Action OnManaChanged;
+    EventBus eventBus;
 
     private void Awake()
     {
+        eventBus = FindAnyObjectByType<EventBus>();
+
         curHP = maxHP;
         curMP = maxMP;
     }
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
         if (curMP >= amount)
         {
             curMP -= amount;
-            OnManaChanged?.Invoke();
+            eventBus.OnManaChanged?.Invoke();
         }
         else
         {
