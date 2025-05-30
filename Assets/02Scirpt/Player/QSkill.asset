@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0c09a9992cbd848b83dd5a54dc439d, type: 3}
   m_Name: QSkill
   m_EditorClassIdentifier: 
-  animationName: 
-  events: []
+  animationName: 1
+  events:
+  - time: 0.2
+    eventType: Shoot
+    param: 10
+  - time: 0
+    eventType: 
+    param: 

@@ -713,7 +713,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 200, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &5586484286870387020
 MonoBehaviour:
@@ -1700,9 +1700,12 @@ GameObject:
   - component: {fileID: 307080806794249356}
   - component: {fileID: 7573432875001171766}
   - component: {fileID: 7468729522487394865}
-  - component: {fileID: 5125028636218980814}
   - component: {fileID: 6843259872957018945}
   - component: {fileID: 1596581667457122880}
+  - component: {fileID: 3991865358931271705}
+  - component: {fileID: 5059655179540588739}
+  - component: {fileID: 3668417672649631915}
+  - component: {fileID: 3770233980174425134}
   m_Layer: 0
   m_Name: MaleCharacterPolyart
   m_TagString: Player
@@ -1815,18 +1818,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabs: {fileID: 1975959190090480, guid: eca000ab44c908d4dab395f654753038, type: 3}
   firePoint: {fileID: 2510563711815912185}
---- !u!114 &5125028636218980814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5352958571798197664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3613b888665ebca40b080aad13bfcb9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6843259872957018945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,6 +1844,64 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ff3cca318bab76049a743e927ac2bd1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3991865358931271705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352958571798197664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a7676933474c542afa437e1539501c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allEventData:
+  - animationName: 2
+    events:
+    - time: 0.2
+      eventType: Shoot
+      param: 10
+--- !u!114 &5059655179540588739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352958571798197664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd015dc962672644d88ab38966316ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventManager: {fileID: 3991865358931271705}
+--- !u!114 &3668417672649631915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352958571798197664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa774647549335f45a1e2df328f8a8ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charAnimManager: {fileID: 5059655179540588739}
+  animators:
+  - {fileID: 5082574569444486177}
+--- !u!114 &3770233980174425134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5352958571798197664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3613b888665ebca40b080aad13bfcb9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5691243874327788079
@@ -2586,7 +2635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

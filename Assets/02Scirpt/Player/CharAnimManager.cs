@@ -14,6 +14,13 @@ public class CharAnimManager : MonoBehaviour
     private string currentAnimStateName;
     private bool isPlaying;
 
+    SkillManager skillManager;
+
+    private void Awake()
+    {
+        skillManager = FindAnyObjectByType<SkillManager>();
+    }
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -52,7 +59,8 @@ public class CharAnimManager : MonoBehaviour
         switch (evt.eventType)
         {
             case "Shoot":
-                // øπ: Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                
+                Debug.Log("Ω∏ »£√‚");
                 break;
             case "Damage":
                 // øπ: ApplyDamage(evt.parameter);

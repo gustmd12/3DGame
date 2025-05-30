@@ -36,6 +36,8 @@ public class SkillManager : MonoBehaviour
 
     UIManager uimanager;
 
+    CharAnimManager charAnimManager;
+    AnimatorController animatorController;
     
     private Dictionary<KeyCode, int> keySkillmap = new Dictionary<KeyCode, int>
     {
@@ -73,6 +75,21 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+    public void CastSkillByanimEvent(string key)
+    {
+        int skillindex = keySkillmap[(KeyCode)System.Enum.Parse(typeof(KeyCode), key)];
+        SkillBase skill = euqippedSkills[skillindex];
+
+        if (skill.skilltype == SkillBase.SkillType.Target)
+        {
+            skill.Cast(_player, curTarget);
+        }
+        else
+            skill.Cast(_player, null);
+
+        Debug.Log("애님이벤트 실행");
+    }
+
     private void Awake()
     {
         uimanager = FindAnyObjectByType<UIManager>();
@@ -82,6 +99,9 @@ public class SkillManager : MonoBehaviour
         playerMovement = _player.GetComponent<PlayerMovement>();
         agent = _player.GetComponent<NavMeshAgent>();
         playerAnimController = _player.GetComponent<PlayerAnimController>();
+
+        charAnimManager = _player.GetComponent<CharAnimManager>();
+        animatorController = _player.GetComponent<AnimatorController>();
     }
 
     private void Start()
@@ -90,6 +110,8 @@ public class SkillManager : MonoBehaviour
         {
             uimanager.SetMana(i,euqippedSkills[i]);
         }
+
+
     }
 
     private void Update()
@@ -107,7 +129,7 @@ public class SkillManager : MonoBehaviour
                 player.UseMana(curSkill.manaCost);
                 cooldownTimer[curSkillindex] = curSkill.cooldown;
                 curSkill.Cast(_player, curTarget);
-                playerAnimController.QSkill();
+                animatorController.SetInt("animation,2");
 
 
                 SetSKill();
@@ -199,7 +221,8 @@ public class SkillManager : MonoBehaviour
                     skill.Cast(_player,target);
 
                     _player.transform.LookAt(target.transform.position);
-                    playerAnimController.QSkill();
+                    //playerAnimController.QSkill();
+                    animatorController.SetInt("animation,2");
 
                     player.UseMana(skill.manaCost);
                     cooldownTimer[index] = skill.cooldown;

@@ -33,7 +33,7 @@ public class UIManager : MonoBehaviour
         
         eventBus = FindAnyObjectByType<EventBus>();
 
-        InitMana(player.maxMP);
+        InitStats(player.maxMP,player.maxHP);
     }
 
     private void Update()
@@ -63,14 +63,17 @@ public class UIManager : MonoBehaviour
         manaText.text = $"{player.curMP}";
     }
 
-    public void InitMana(int maxMP)
+    public void InitStats(int maxMP,int maxHP)
     {
         manaslider.maxValue = maxMP;
         manaslider.value = maxMP;
+        hpslider.maxValue = maxHP;
+        hpslider.value = maxHP;
+
         playerManaSlider.maxValue = maxMP;
         playerManaSlider.value = maxMP;
         manaText.text = maxMP.ToString();
-
+        hpText.text = maxHP.ToString();
     }
 
 

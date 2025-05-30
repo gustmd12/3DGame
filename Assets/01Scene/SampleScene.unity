@@ -5658,17 +5658,25 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 3574910191892783472, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
-      propertyPath: m_Color.b
-      value: 0
+    - target: {fileID: 3991865358931271705, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
+      propertyPath: allEventData.Array.data[0].events.Array.size
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 3574910191892783472, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
-      propertyPath: m_Color.g
-      value: 0
+    - target: {fileID: 3991865358931271705, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
+      propertyPath: allEventData.Array.data[0].events.Array.data[0].time
+      value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3574910191892783472, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
-      propertyPath: m_Color.r
-      value: 0
+    - target: {fileID: 3991865358931271705, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
+      propertyPath: allEventData.Array.data[0].events.Array.data[1].time
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991865358931271705, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
+      propertyPath: allEventData.Array.data[0].events.Array.data[1].param
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3991865358931271705, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
+      propertyPath: allEventData.Array.data[0].events.Array.data[1].eventType
+      value: AnimFinish
       objectReference: {fileID: 0}
     - target: {fileID: 4312685896753075181, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5721,10 +5729,6 @@ PrefabInstance:
     - target: {fileID: 5352958571798197664, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7316296374947516751, guid: c564c8c0d0cdc45429417f315e9f3e41, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6234,7 +6238,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -7237,7 +7241,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -12853,7 +12857,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
@@ -12928,7 +12932,7 @@ MonoBehaviour:
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
-  m_FillClockwise: 1
+  m_FillClockwise: 0
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
