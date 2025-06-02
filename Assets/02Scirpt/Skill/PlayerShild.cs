@@ -8,6 +8,14 @@ public class PlayerShild : MonoBehaviour
     GameObject shieldpre;
 
     GameObject player;
+
+    UIManager uIManager;
+
+    private void Awake()
+    {
+        uIManager = FindAnyObjectByType<UIManager>();
+    }
+
     private void Update()
     {
         CheckShild();
@@ -33,11 +41,30 @@ public class PlayerShild : MonoBehaviour
 
         currentShild = amount;
         shildTimer = shildTime;
+        uIManager.UpdateShield(amount);
         //Debug.Log($"방어막 : {amount} 지속시간 : {shildTime}");
     }
 
     public void Initpre(GameObject shild)
     {
         shieldpre = shild;
+    }
+
+    public float AbsorbDamage(float damage)
+    {
+        if(currentShild > 0f)
+        {
+            float absorbed = Mathf.Min(damage, currentShild);
+            currentShild -= absorbed;
+
+            if(currentShild <= 0f)
+            {
+                Destroy(shieldpre);
+            }
+
+            return damage - absorbed;
+        }
+
+        return damage;
     }
 }

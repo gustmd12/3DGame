@@ -71,6 +71,9 @@ public class CharAnimManager : MonoBehaviour
             case "RSkill":
                 skillManager.TryCastSkill(3);
                 break;
+            case "Attack":
+                Debug.Log("╬Нец ╬ж╢т");
+                break;
             case "AnimFinish":
                 animator.SetInteger("animation", 1);
                 isPlaying = false;

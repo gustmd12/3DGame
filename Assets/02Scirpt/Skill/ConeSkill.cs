@@ -44,10 +44,10 @@ public class ConeSkill : SkillBase
 
             if(angleToTarget < angle / 2f)
             {
-                Targetable t = hita.GetComponent<Targetable>();
+                IDamaged t = hita.GetComponent<IDamaged>();
                 if (t != null)
                 {
-                    Debug.Log("Wµ¥¹ÌÁö");
+                    t.TakeDamage(skillDamage);
                 }
             }
         }

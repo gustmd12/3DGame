@@ -3,12 +3,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int maxHP = 100;
-    public int maxMP = 100;
-    public int curHP;
-    public int curMP;
+    public float maxHP = 100;
+    public float maxMP = 100;
+    public float curHP;
+    public float curMP;
 
     EventBus eventBus;
+
+    public int manaRegen = 2;
 
     private void Awake()
     {
@@ -20,7 +22,17 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+        RegenMana();
+    }
+
+    void RegenMana()
+    {
+        if(curMP < maxMP)
+        {
+            curMP += manaRegen * Time.deltaTime;
+            curMP = Mathf.Min(curMP, maxMP);
+            eventBus.OnManaChanged?.Invoke();
+        }
     }
 
     public void UseMana(int amount)

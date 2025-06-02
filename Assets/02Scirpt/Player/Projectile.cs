@@ -4,7 +4,7 @@ public class Projectile : MonoBehaviour
 {
     private Transform target;
     private float speed = 5f;
-
+    private float damage = 5f;
     public void initTarget(Transform _target)
     {
         target = _target;
@@ -20,6 +20,20 @@ public class Projectile : MonoBehaviour
         if(dist < 0.3f)
         {
             Destroy(gameObject);
+        }
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("공격 적중");
+            IDamaged hit = other.GetComponent<IDamaged>();
+            if (hit != null)
+            {
+                hit.TakeDamage(damage);
+            }
         }
     }
 }

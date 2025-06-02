@@ -34,6 +34,7 @@ public class AreaSkill : SkillBase
                 if (t != null)
                 {
                     Debug.Log("R 스킬 적중");
+                    t.TakeDamage(skillDamage);
                 }
             }
         }

@@ -14,6 +14,7 @@ public class ShildSkill : SkillBase
         {
             playerShild.ApplyShild(shildAmount, duration);
 
+
             Debug.Log($"방어막 : {shildAmount}, 지속시간 : {duration}");
         }
 

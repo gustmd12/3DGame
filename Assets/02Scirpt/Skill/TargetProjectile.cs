@@ -27,15 +27,23 @@ public class TargetProjectile : MonoBehaviour
         {
             Destroy(gameObject);
             Instantiate(hitef,target);
+            
         }
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Q ¥Í¿Ω");
+            Debug.Log("Q ¿˚¡ﬂ");
+            IDamaged hit = other.GetComponent<IDamaged>();
+            if (hit != null)
+            {
+                hit.TakeDamage(10);
+            }
         }
     }
+
+
+
 }

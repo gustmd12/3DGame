@@ -16,12 +16,15 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerAnimController playerAnimController;
 
+    AnimatorController animatorController;
+
     [SerializeField] GameObject prefabs;
     [SerializeField] Transform firePoint;
     private void Awake()
     {
         TryGetComponent<NavMeshAgent>(out agent);
         TryGetComponent<PlayerAnimController>(out playerAnimController);
+        TryGetComponent<AnimatorController>(out animatorController);
     }
     void Update()
     {
@@ -55,7 +58,10 @@ public class PlayerAttack : MonoBehaviour
                 Debug.Log("АјАн");
                 lastAttackTime = Time.time;
                 
-                playerAnimController.Attack();
+                //playerAnimController.Attack();
+
+                animatorController.SetInt("animation,5");
+
                 Fire(currentTarget);
 
                 isAttacking = true;
