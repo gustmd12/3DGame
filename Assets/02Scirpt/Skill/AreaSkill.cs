@@ -10,10 +10,6 @@ public class AreaSkill : SkillBase
     public float radius = 3f;
     public LayerMask enemyLayer;
 
-    private float lineDuration = 1f;
-
-    private LineRenderer lineRenderer;
-
     [SerializeField] GameObject HitAreaPre;
     public override void Cast(GameObject caster, Targetable target)
     {
@@ -34,7 +30,7 @@ public class AreaSkill : SkillBase
 
             foreach (var hita in hits)
             {
-                Targetable t = hita.GetComponent<Targetable>();
+                IDamaged t = hita.GetComponent<IDamaged>();
                 if (t != null)
                 {
                     Debug.Log("R 스킬 적중");

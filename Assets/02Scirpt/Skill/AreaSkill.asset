@@ -15,6 +15,7 @@ MonoBehaviour:
   skillName: AreaSkill
   cooldown: 30
   manaCost: 25
+  skillDamage: 30
   skilltype: 3
   radius: 2
   enemyLayer:

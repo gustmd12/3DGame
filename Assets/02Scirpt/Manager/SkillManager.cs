@@ -62,9 +62,15 @@ public class SkillManager : MonoBehaviour
                         TargetSkill(skillIndex);
                         break;
                     case SkillBase.SkillType.Direction:
-                    case SkillBase.SkillType.Self:
-                    case SkillBase.SkillType.Area:
                         TryCastSkill(skillIndex);
+                        animatorController.SetInt("animation,3");
+                        break;
+                    case SkillBase.SkillType.Self:
+                        TryCastSkill(skillIndex);
+                        break;
+                    case SkillBase.SkillType.Area:
+                        animatorController.SetInt("animation,4");
+                        //TryCastSkill(skillIndex);
                         break;
                     default:
                         Debug.Log("알수없는 스킬타입");
@@ -145,7 +151,7 @@ public class SkillManager : MonoBehaviour
         curSkillindex = -1;
     }
 
-    void TryCastSkill(int index)
+    public void TryCastSkill(int index)
     {
         SkillBase skill = euqippedSkills[index];
 
@@ -161,18 +167,7 @@ public class SkillManager : MonoBehaviour
             Debug.Log("마나부족");
             return;
         }
-
-        if(index == 1)
-        {
-            playerAnimController.WSkill();
-        }
-
-        if(index == 3)
-        {
-            playerAnimController.RSkill();
-        }
-
-
+        
         skill.Cast(_player,null);
         playerAttack.StopChar();
         

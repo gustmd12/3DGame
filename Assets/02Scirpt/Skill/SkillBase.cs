@@ -6,6 +6,7 @@ public abstract class SkillBase : ScriptableObject
     public string skillName;
     public float cooldown;
     public int manaCost;
+    public float skillDamage;
     public SkillType skilltype;
 
     private float currentCooldown;

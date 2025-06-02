@@ -15,6 +15,7 @@ MonoBehaviour:
   skillName: ConeSkill
   cooldown: 5
   manaCost: 20
+  skillDamage: 15
   skilltype: 1
   range: 6
   angle: 60

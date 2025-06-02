@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     Slider hpslider;
     Slider manaslider;
     Slider playerManaSlider;
+    Slider playerHPSlider;
     GameObject _player;
 
     TextMeshProUGUI manaText;
@@ -23,8 +24,13 @@ public class UIManager : MonoBehaviour
     {
         player = FindAnyObjectByType<Player>();
         manaslider = GameObject.Find("ManaBar").GetComponent<Slider>();
+        
+
         hpslider = GameObject.Find("HPBar").GetComponent<Slider>();
         playerManaSlider = GameObject.Find("PlayerManaBar").GetComponent<Slider>();
+        playerHPSlider = GameObject.Find("PlayerHPBar").GetComponent<Slider>();
+
+
         _player = GameObject.Find("Player");
         skillManager = FindAnyObjectByType<SkillManager>();
 
@@ -72,6 +78,9 @@ public class UIManager : MonoBehaviour
 
         playerManaSlider.maxValue = maxMP;
         playerManaSlider.value = maxMP;
+        playerHPSlider.maxValue = maxHP;
+        playerHPSlider.value = maxHP;
+
         manaText.text = maxMP.ToString();
         hpText.text = maxHP.ToString();
     }

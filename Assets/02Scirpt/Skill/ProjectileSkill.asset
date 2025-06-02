@@ -15,5 +15,7 @@ MonoBehaviour:
   skillName: TargetingSkill
   cooldown: 5
   manaCost: 15
+  skillDamage: 10
+  skilltype: 0
   Fireprefabs: {fileID: 1024214072490390, guid: d383195b63305294fa0b3354e7cfd563, type: 3}
   HitPrefab: {fileID: 123640, guid: 9242b15a276bc5a4babd09239e5fa709, type: 3}
