@@ -31,13 +31,14 @@ public class PlayerShild : MonoBehaviour
                 currentShild = 0f;
                 Destroy(shieldpre);
                 Debug.Log("방어막 해제");
-
+                uIManager?.UpdateShield(0f);
             }
         }
     }
 
     public void ApplyShild(float amount, float shildTime)
     {
+        if (currentShild > 0f) return;
 
         currentShild = amount;
         shildTimer = shildTime;

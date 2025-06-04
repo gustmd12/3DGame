@@ -20,6 +20,8 @@ public class TargetProjectile : MonoBehaviour
     
     private void Update()
     {
+        direction = (target.position - transform.position).normalized;
+
         transform.position += direction * speed * Time.deltaTime;
 
         float dist = Vector3.Distance(transform.position, target.position);

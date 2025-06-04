@@ -1869,7 +1869,6 @@ GameObject:
   - component: {fileID: 3991865358931271705}
   - component: {fileID: 5059655179540588739}
   - component: {fileID: 3668417672649631915}
-  - component: {fileID: 3770233980174425134}
   m_Layer: 0
   m_Name: MaleCharacterPolyart
   m_TagString: Player
@@ -1998,6 +1997,7 @@ MonoBehaviour:
   maxMP: 100
   curHP: 0
   curMP: 0
+  manaRegen: 2
 --- !u!114 &1596581667457122880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2028,7 +2028,31 @@ MonoBehaviour:
     - time: 0.5
       eventType: Shoot
       param: 10
-    - time: 0.7
+    - time: 0.64
+      eventType: AnimFinish
+      param: 20
+  - animationName: 3
+    events:
+    - time: 0.5
+      eventType: Shoot
+      param: 10
+    - time: 0.6
+      eventType: AnimFinish
+      param: 20
+  - animationName: 4
+    events:
+    - time: 0.1
+      eventType: RSkill
+      param: 10
+    - time: 0.5
+      eventType: AnimFinish
+      param: 20
+  - animationName: 5
+    events:
+    - time: 0.1
+      eventType: Attack
+      param: 10
+    - time: 0.45
       eventType: AnimFinish
       param: 20
 --- !u!114 &5059655179540588739
@@ -2059,18 +2083,6 @@ MonoBehaviour:
   charAnimManager: {fileID: 5059655179540588739}
   animators:
   - {fileID: 5082574569444486177}
---- !u!114 &3770233980174425134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5352958571798197664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3613b888665ebca40b080aad13bfcb9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5691243874327788079
 GameObject:
   m_ObjectHideFlags: 0

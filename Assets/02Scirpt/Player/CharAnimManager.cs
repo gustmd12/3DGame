@@ -39,6 +39,18 @@ public class CharAnimManager : MonoBehaviour
         isPlaying = true;
     }
 
+    public void PlayerMove(bool isMoving)
+    {
+        animator.SetBool("Move", isMoving);
+        if (isMoving)
+        {
+            if(!isPlaying)
+            {
+                animator.SetInteger("animation", 1);
+            }
+        }
+    }
+
     private void Update()
     {
         if (!isPlaying || currentEvents == null) return;

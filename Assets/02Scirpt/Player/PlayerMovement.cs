@@ -7,11 +7,13 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSpeed = 720f;
 
     private PlayerAnimController animController;
+    private CharAnimManager charAnimManager;
 
     private void Awake()
     {
         TryGetComponent<NavMeshAgent>(out agent);
         TryGetComponent<PlayerAnimController>(out  animController);
+        TryGetComponent<CharAnimManager>(out charAnimManager);
         agent.updateRotation = false;
     }
     void Update()
@@ -34,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float speed = agent.velocity.magnitude;
 
-        animController.PlayerMove(speed > 0.1f);
+        charAnimManager.PlayerMove(speed > 0.1f);
     }
     
     void RotationUpdate()

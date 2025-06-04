@@ -15,10 +15,13 @@ public class UIManager : MonoBehaviour
     Slider enemyHPSlider;
     Slider ShieldSlider;
 
+    GameObject ShieldObj;
+
     GameObject _player;
 
     TextMeshProUGUI manaText;
     TextMeshProUGUI hpText;
+    TextMeshProUGUI shieldText;
     
     [SerializeField] TextMeshProUGUI[] skillManaText;
 
@@ -33,32 +36,31 @@ public class UIManager : MonoBehaviour
         manaslider = GameObject.Find("ManaBar").GetComponent<Slider>();
         hpslider = GameObject.Find("HPBar").GetComponent<Slider>();
         ShieldSlider = GameObject.Find("ShieldBar").GetComponent<Slider>();
+        ShieldObj = ShieldSlider.gameObject;
+        
 
         playerManaSlider = GameObject.Find("PlayerManaBar").GetComponent<Slider>();
         playerHPSlider = GameObject.Find("PlayerHPBar").GetComponent<Slider>();
         enemyHPSlider = GameObject.Find("EnemyHPBar").GetComponent<Slider>();
-        
-
 
         _player = GameObject.Find("Player");
         skillManager = FindAnyObjectByType<SkillManager>();
 
         manaText = GameObject.Find("ManaText").GetComponent<TextMeshProUGUI>();
         hpText = GameObject.Find("HpText").GetComponent<TextMeshProUGUI>();
+        shieldText = GameObject.Find("ShieldText").GetComponent<TextMeshProUGUI>();
         
         eventBus = FindAnyObjectByType<EventBus>();
 
         InitStats(player.maxMP,player.maxHP);
         EnemyInit(enemy.maxHP);
+
+        ShieldObj.SetActive(false);
     }
 
     private void Update()
     {
-        //if (_player != null)
-        //{
-        //    Vector3 PlayerScreenPos = Camera.main.WorldToScreenPoint(_player.transform.position);
-        //    playerManaSlider.transform.position = PlayerScreenPos;
-        //}
+        
     }
 
     private void OnEnable()
@@ -76,7 +78,19 @@ public class UIManager : MonoBehaviour
     public void UpdateShield(float amount)
     {
         float shield = amount;
+        if (shield > 0)
+        {
+            if(!ShieldObj.activeSelf)
+                ShieldObj.SetActive(true);
 
+            //ShieldSlider.value = Mathf.Clamp01(amount / 5);
+            shieldText.text = $"{amount}";
+        }
+        else
+        {
+            if(ShieldObj.activeSelf)
+                ShieldObj.SetActive(false);
+        }
     }
 
     void UpdateHP()
