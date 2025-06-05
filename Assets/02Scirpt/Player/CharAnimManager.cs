@@ -15,7 +15,7 @@ public class CharAnimManager : MonoBehaviour
     private bool isPlaying;
 
     SkillManager skillManager;
-
+    AnimatorController animatorController;
     private void Awake()
     {
         skillManager = FindAnyObjectByType<SkillManager>();
@@ -24,6 +24,7 @@ public class CharAnimManager : MonoBehaviour
     private void Start()
     {
         animator = GetComponent<Animator>();
+        animatorController = GetComponent<AnimatorController>();
     }
 
     public void PlayAnimation(int animID)
@@ -33,7 +34,7 @@ public class CharAnimManager : MonoBehaviour
         currentAnimStateName = $"animation{animID.ToString()}";
         currentEvents = eventManager.GetEventsForAnimation(animID.ToString());
 
-        Debug.Log($"Count : {currentEvents.Count} ");
+        //Debug.Log($"Count : {currentEvents.Count} ");
         animElapsedTime = 0f;
         currentIndex = 0;
         isPlaying = true;
@@ -66,12 +67,12 @@ public class CharAnimManager : MonoBehaviour
 
     private void ExecuteTimedEvent(TimedEvent evt)
     {
-        Debug.Log($"[타이밍 이벤트] {evt.eventType} at {evt.time}s | param: {evt.param}");
+        //Debug.Log($"[타이밍 이벤트] {evt.eventType} at {evt.time}s | param: {evt.param}");
 
         switch (evt.eventType)
         {
             case "Shoot":
-                Debug.Log("슛 호출");
+                //Debug.Log("슛 호출");
                 break;
             case "Damage":
                 // 예: ApplyDamage(evt.parameter);

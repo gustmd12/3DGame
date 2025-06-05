@@ -39,6 +39,7 @@ public class EnemyUIManager : MonoBehaviour
         }
 
         uimap[enemy].UpdateHP(enemy.curHP);
+        
     }
 
     private void OnEnemyDied(Enemy enemy)
@@ -75,4 +76,5 @@ public class EnemyUIManager : MonoBehaviour
             kvp.Value.UpdatePosition(cam);
         }
     }
+    
 }

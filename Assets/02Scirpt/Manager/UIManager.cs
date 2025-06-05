@@ -6,16 +6,18 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     Player player;
-    Enemy enemy;
+    //Enemy enemy;
 
     Slider hpslider;
     Slider manaslider;
     Slider playerManaSlider;
     Slider playerHPSlider;
-    Slider enemyHPSlider;
+    //Slider enemyHPSlider;
     Slider ShieldSlider;
+    Slider playerShieldSlider;
 
     GameObject ShieldObj;
+    GameObject playerShield;
 
     GameObject _player;
 
@@ -32,16 +34,18 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         player = FindAnyObjectByType<Player>();
-        enemy = FindAnyObjectByType<Enemy>();
+        //enemy = FindAnyObjectByType<Enemy>();
         manaslider = GameObject.Find("ManaBar").GetComponent<Slider>();
         hpslider = GameObject.Find("HPBar").GetComponent<Slider>();
         ShieldSlider = GameObject.Find("ShieldBar").GetComponent<Slider>();
         ShieldObj = ShieldSlider.gameObject;
-        
+        playerShieldSlider = GameObject.Find("PlayerShieldBar").GetComponent<Slider>();
+        playerShield = playerShieldSlider.gameObject;
+
 
         playerManaSlider = GameObject.Find("PlayerManaBar").GetComponent<Slider>();
         playerHPSlider = GameObject.Find("PlayerHPBar").GetComponent<Slider>();
-        enemyHPSlider = GameObject.Find("EnemyHPBar").GetComponent<Slider>();
+        //enemyHPSlider = GameObject.Find("EnemyHPBar").GetComponent<Slider>();
 
         _player = GameObject.Find("Player");
         skillManager = FindAnyObjectByType<SkillManager>();
@@ -53,9 +57,10 @@ public class UIManager : MonoBehaviour
         eventBus = FindAnyObjectByType<EventBus>();
 
         InitStats(player.maxMP,player.maxHP);
-        EnemyInit(enemy.maxHP);
+        //EnemyInit(enemy.maxHP);
 
         ShieldObj.SetActive(false);
+        playerShield.SetActive(false);
     }
 
     private void Update()
@@ -66,13 +71,13 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         eventBus.OnManaChanged += UpdateMana;
-        eventBus.OnHPChanged += UpdateHP;
+        //eventBus.OnHPChanged += UpdateHP;
     }
 
     private void OnDisable()
     {
         eventBus.OnManaChanged -= UpdateMana;
-        eventBus.OnHPChanged -= UpdateHP;
+        //eventBus.OnHPChanged -= UpdateHP;
     }
 
     public void UpdateShield(float amount)
@@ -82,7 +87,8 @@ public class UIManager : MonoBehaviour
         {
             if(!ShieldObj.activeSelf)
                 ShieldObj.SetActive(true);
-
+            if(!playerShield.activeSelf)
+                playerShield.SetActive(true);
             //ShieldSlider.value = Mathf.Clamp01(amount / 5);
             shieldText.text = $"{amount}";
         }
@@ -90,14 +96,16 @@ public class UIManager : MonoBehaviour
         {
             if(ShieldObj.activeSelf)
                 ShieldObj.SetActive(false);
+            if(playerShield.activeSelf)
+                playerShield.SetActive(false);
         }
     }
 
-    void UpdateHP()
-    {
-        enemyHPSlider.value = enemy.curHP;
-        Debug.Log("enemy hp");
-    }
+    //void UpdateHP()
+    //{
+    //    enemyHPSlider.value = enemy.curHP;
+    //    Debug.Log("enemy hp");
+    //}
 
     void UpdateMana()
     {
@@ -106,11 +114,11 @@ public class UIManager : MonoBehaviour
         manaText.text = $"{player.curMP:F0}";
     }
 
-    public void EnemyInit(float maxHP)
-    {
-        enemyHPSlider.maxValue = maxHP;
-        enemyHPSlider.value = maxHP;
-    }
+    //public void EnemyInit(float maxHP)
+    //{
+    //    enemyHPSlider.maxValue = maxHP;
+    //    enemyHPSlider.value = maxHP;
+    //}
 
     public void InitStats(float maxMP,float maxHP)
     {

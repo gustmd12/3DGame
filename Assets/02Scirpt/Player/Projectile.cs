@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
         float dist = Vector3.Distance(transform.position, target.position);
         if(dist < 0.3f)
         {
-            Destroy(gameObject);
+            
         }
     }
 
@@ -32,6 +32,7 @@ public class Projectile : MonoBehaviour
             IDamaged hit = other.GetComponent<IDamaged>();
             if (hit != null)
             {
+                Destroy(gameObject);
                 hit.TakeDamage(damage);
             }
         }

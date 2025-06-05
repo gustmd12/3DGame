@@ -4,7 +4,22 @@ using UnityEngine.UI;
 public class EnemyUI : MonoBehaviour
 {
     Enemy target;
+    RectTransform rectTransform;
+
     [SerializeField] Slider hpSlider;
+
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void Update()
+    {
+        if (target == null)
+        {
+            gameObject.SetActive(false);
+        }
+    }
 
     public void init(Enemy enemy)
     {
@@ -29,4 +44,6 @@ public class EnemyUI : MonoBehaviour
 
         gameObject.SetActive(pos.z > 0);
     }
+
+    
 }

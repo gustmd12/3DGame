@@ -1,6 +1,8 @@
+using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -56,7 +58,12 @@ public class SkillManager : MonoBehaviour
                 int skillIndex = entry.Value;
                 SkillBase skill = euqippedSkills[skillIndex];
 
-                switch(skill.skilltype)
+                if (cooldownTimer[skillIndex] > 0f || player.curMP < skill.manaCost)
+                {
+                    return;
+                }
+
+                    switch (skill.skilltype)
                 {
                     case SkillBase.SkillType.Target:
                         TargetSkill(skillIndex);
@@ -81,20 +88,20 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public void CastSkillByanimEvent(string key)
-    {
-        int skillindex = keySkillmap[(KeyCode)System.Enum.Parse(typeof(KeyCode), key)];
-        SkillBase skill = euqippedSkills[skillindex];
+    //public void CastSkillByanimEvent(string key)
+    //{
+    //    int skillindex = keySkillmap[(KeyCode)System.Enum.Parse(typeof(KeyCode), key)];
+    //    SkillBase skill = euqippedSkills[skillindex];
 
-        if (skill.skilltype == SkillBase.SkillType.Target)
-        {
-            skill.Cast(_player, curTarget);
-        }
-        else
-            skill.Cast(_player, null);
+    //    if (skill.skilltype == SkillBase.SkillType.Target)
+    //    {
+    //        skill.Cast(_player, curTarget);
+    //    }
+    //    else
+    //        skill.Cast(_player, null);
 
-        Debug.Log("애님이벤트 실행");
-    }
+    //    Debug.Log("애님이벤트 실행");
+    //}
 
     private void Awake()
     {
@@ -167,13 +174,12 @@ public class SkillManager : MonoBehaviour
             Debug.Log("마나부족");
             return;
         }
-        
-        skill.Cast(_player,null);
+
+        skill.Cast(_player, null);
         playerAttack.StopChar();
-        
+
         player.UseMana(skill.manaCost);
         cooldownTimer[index] = skill.cooldown;
-        
         
     }
 
@@ -201,44 +207,36 @@ public class SkillManager : MonoBehaviour
             return;
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (!Physics.Raycast(ray, out RaycastHit hit))
         {
-            Targetable target = hit.collider.GetComponent<Targetable>();
-
-
-            if (target != null)
-            {
-                float dist = Vector3.Distance(_player.transform.position, target.transform.position);
-                if (dist <= attackRange)
-                {
-                    playerAttack.StopChar();
-                    skill.Cast(_player,target);
-
-                    _player.transform.LookAt(target.transform.position);
-                    //playerAnimController.QSkill();
-                    animatorController.SetInt("animation,2");
-
-                    player.UseMana(skill.manaCost);
-                    cooldownTimer[index] = skill.cooldown;
-                    
-                }
-                else
-                {
-                    curTarget = target;
-                    curSkill = skill;
-                    curSkillindex = index;
-                    isMovingtoCast = true;
-                    MoveCast(target,attackRange);
-                    
-                }
-            }
-            else
-            {
-                Debug.Log("타겟이 없습니다");
-            }
+            Debug.Log("타겟이 없습니다");
+            return;
         }
         
+        
+        var target = hit.collider.GetComponent<Targetable>();
+        if (target == null)
+        {
+            Debug.Log("타겟이 없습니다");
+            return;
+        }
+
+        float dist = Vector3.Distance(_player.transform.position, target.transform.position);
+
+        if (dist <= attackRange)
+        {
+            player.UseMana(skill.manaCost);
+            cooldownTimer[index] = skill.cooldown;
+            skill.Cast(_player, target);
+        }
+        else
+        {
+            curTarget = target;
+            curSkill = skill;
+            curSkillindex = index;
+            isMovingtoCast = true;
+            MoveCast(target, attackRange);
+        }
 
     }
     public void MoveCast(Targetable target, float attackRange)
