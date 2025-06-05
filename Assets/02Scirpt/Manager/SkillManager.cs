@@ -208,10 +208,7 @@ public class SkillManager : MonoBehaviour
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (!Physics.Raycast(ray, out RaycastHit hit))
-        {
-            Debug.Log("타겟이 없습니다");
             return;
-        }
         
         
         var target = hit.collider.GetComponent<Targetable>();
