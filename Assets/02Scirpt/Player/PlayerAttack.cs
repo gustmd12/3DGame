@@ -28,20 +28,6 @@ public class PlayerAttack : MonoBehaviour
     }
     void Update()
     {
-        //if (isAttacking)
-        //{서서히 돌아가 타겟 쳐다보기
-        //    TargetLookat();
-
-        //    if(Time.time >= attackEndTime)
-        //    {
-        //        ClearTarget();
-        //        isAttacking = false;
-                
-        //    }
-
-        //    return;
-        //}
-        
         if (currentTarget == null)
             return;
 
@@ -51,14 +37,12 @@ public class PlayerAttack : MonoBehaviour
         {
             agent.ResetPath();
             transform.LookAt(currentTarget.position);
-            //TargetLookat();
+            
 
             if (Time.time - lastAttackTime > attackCoolDown)
             {
                 Debug.Log("공격");
                 lastAttackTime = Time.time;
-                
-                //playerAnimController.Attack();
 
                 animatorController.SetInt("animation,5");
 
@@ -77,8 +61,6 @@ public class PlayerAttack : MonoBehaviour
         agent.ResetPath();
     }
 
-    
-
     public void SetTarget(Transform target)
     {
         currentTarget = target;
@@ -88,21 +70,7 @@ public class PlayerAttack : MonoBehaviour
     {
         currentTarget = null;
     }
-    //void TargetLookat()
-    //{
-    //    if (currentTarget == null)
-    //        return;
-
-    //    Vector3 dir = (currentTarget.position - transform.position).normalized;
-    //    dir.y = 0f;
-
-    //    if (dir == Vector3.zero) return;
-
-    //    Quaternion targetRotation = Quaternion.LookRotation(dir);
-    //    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotSpeed * Time.deltaTime);
-    //    Debug.Log("룩앳 호출");
-    //}
-
+    
     public void Fire(Transform target)
     {
         GameObject proj = Instantiate(prefabs, firePoint.position, Quaternion.identity);

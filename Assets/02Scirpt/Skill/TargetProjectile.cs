@@ -25,16 +25,11 @@ public class TargetProjectile : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
 
         float dist = Vector3.Distance(transform.position, target.position);
-        if (dist < 0.3f)
-        {
-            
-            
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.CompareTag("Enemy") && other.transform == target)
         {
             Debug.Log("Q РћСп");
             IDamaged hit = other.GetComponent<IDamaged>();

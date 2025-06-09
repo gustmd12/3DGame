@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement playerMovement;
     private PlayerAttack playerAttack;
 
+    [SerializeField] GameObject mouseClickEffect;
 
 
     private void Awake()
@@ -41,11 +42,26 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     agent.SetDestination(hit.point);
+                    ShowMoveClickEffect(hit.point,hit.normal);
+
                 }
 
             }
            
         }
+    }
+
+    private void ShowMoveClickEffect(Vector3 postion, Vector3 normal)
+    {
+        if (mouseClickEffect == null) return;
+
+
+        Vector3 effectPos = new Vector3(postion.x, postion.y + 0.5f, postion.z);
+        Quaternion effect = Quaternion.FromToRotation(Vector3.up, normal);
+
+        GameObject Effect = Instantiate(mouseClickEffect, effectPos, Quaternion.Euler(90,0,0));
+
+        Destroy(Effect, 0.5f);
     }
 
     

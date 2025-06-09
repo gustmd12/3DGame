@@ -41,12 +41,13 @@ public class SkillManager : MonoBehaviour
     CharAnimManager charAnimManager;
     AnimatorController animatorController;
     
-    private Dictionary<KeyCode, int> keySkillmap = new Dictionary<KeyCode, int>
+    private Dictionary<KeyCode, SkillSlot> keySkillmap = new Dictionary<KeyCode, SkillSlot>
     {
-        {KeyCode.Q, 0},
-        {KeyCode.W, 1},
-        {KeyCode.E, 2},
-        {KeyCode.R, 3}
+        {KeyCode.Q, SkillSlot.Slot1},
+        {KeyCode.W, SkillSlot.Slot2},
+        {KeyCode.E, SkillSlot.Slot3},
+        {KeyCode.R, SkillSlot.Slot4}
+
     };
 
     private void HandleInput()
@@ -55,7 +56,9 @@ public class SkillManager : MonoBehaviour
         {
             if(Input.GetKeyDown(entry.Key))
             {
-                int skillIndex = entry.Value;
+                SkillSlot skillSlot = entry.Value;
+                int skillIndex = (int)skillSlot;
+
                 SkillBase skill = euqippedSkills[skillIndex];
 
                 if (cooldownTimer[skillIndex] > 0f || player.curMP < skill.manaCost)
@@ -88,20 +91,6 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    //public void CastSkillByanimEvent(string key)
-    //{
-    //    int skillindex = keySkillmap[(KeyCode)System.Enum.Parse(typeof(KeyCode), key)];
-    //    SkillBase skill = euqippedSkills[skillindex];
-
-    //    if (skill.skilltype == SkillBase.SkillType.Target)
-    //    {
-    //        skill.Cast(_player, curTarget);
-    //    }
-    //    else
-    //        skill.Cast(_player, null);
-
-    //    Debug.Log("애님이벤트 실행");
-    //}
 
     private void Awake()
     {
@@ -181,12 +170,6 @@ public class SkillManager : MonoBehaviour
         player.UseMana(skill.manaCost);
         cooldownTimer[index] = skill.cooldown;
         
-    }
-
-    private IEnumerator delaySkill()
-    {
-        yield return new WaitForSeconds(1f);
-        agent.isStopped = false;
     }
 
     void TargetSkill(int index)
