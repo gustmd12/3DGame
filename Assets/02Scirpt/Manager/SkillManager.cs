@@ -80,7 +80,6 @@ public class SkillManager : MonoBehaviour
                         break;
                     case SkillBase.SkillType.Area:
                         animatorController.SetInt("animation,4");
-                        //TryCastSkill(skillIndex);
                         break;
                     default:
                         Debug.Log("알수없는 스킬타입");

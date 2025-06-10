@@ -72,20 +72,15 @@ public class CharAnimManager : MonoBehaviour
         switch (evt.eventType)
         {
             case "Shoot":
-                //Debug.Log("슛 호출");
                 break;
             case "Damage":
-                // 예: ApplyDamage(evt.parameter);
-                Debug.Log("히트");
                 break;
             case "Effect":
-                // 예: PlayEffect(evt.parameter);
                 break;
             case "RSkill":
                 skillManager.TryCastSkill(3);
                 break;
             case "Attack":
-                Debug.Log("어택 애님");
                 break;
             case "AnimFinish":
                 animator.SetInteger("animation", 1);

@@ -21,7 +21,11 @@ public class ProjectileSkill : SkillBase
     public override void Cast(GameObject caster, Targetable target)
     {
         Transform firePoint = caster.transform.Find("FirePoint");
-        if(animatorController == null)
+        if(player == null )
+        {
+            player = caster.GetComponent<Player>();
+        }
+        if (animatorController == null)
         {
             animatorController = caster.GetComponent<AnimatorController>();
         }
@@ -67,21 +71,11 @@ public class ProjectileSkill : SkillBase
         }
                 
     }
-
-    public void MoveCast(Targetable target, float attackRange, GameObject caster)
-    {
-        float dist = Vector3.Distance(caster.transform.position, target.transform.position);
-        if (dist >= attackRange)
-        {
-            agent.SetDestination(target.transform.position);
-        }
-
-
-    }
+        
 
     private void Awake()
     {
-        player = FindAnyObjectByType<Player>();
+       
         
     }
 
