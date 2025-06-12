@@ -31,10 +31,10 @@ public class ConeSkill : SkillBase
             Targetdir.y = 0f;
             caster.transform.LookAt(hit.point);
 
-            //origin = caster.transform.position;
-            //forward = caster.transform.forward;
-            //effectPos = origin + forward * 1f + new Vector3(0f, 0.5f, 0f);
-            //rot = Quaternion.LookRotation(forward);
+            origin = caster.transform.position;
+            forward = caster.transform.forward;
+            effectPos = origin + forward * 1f + new Vector3(0f, 0.5f, 0f);
+            rot = Quaternion.LookRotation(forward);
         }
 
         foreach (Collider hita in hits )
