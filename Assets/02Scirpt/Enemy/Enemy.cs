@@ -6,11 +6,14 @@ public class Enemy : MonoBehaviour,IDamaged
     public float curHP;
     EventBus eventBus;
     EnemyUIManager enemyUIManager;
+    DamageTextSpawner damageTextSpawner;
 
     private void Awake()
     {
         eventBus = FindAnyObjectByType<EventBus>();
         enemyUIManager = FindAnyObjectByType<EnemyUIManager>();
+        damageTextSpawner = FindAnyObjectByType<DamageTextSpawner>();
+
         curHP = maxHP;
         Debug.Log($"몬스터의 체력 : {curHP}");
     }
@@ -31,6 +34,8 @@ public class Enemy : MonoBehaviour,IDamaged
 
         Debug.Log($"몬스터의 남은 체력 : {curHP}");
         eventBus.OnEnemyHPChanged?.Invoke(this);
+        damageTextSpawner.ShowDamamge(transform.position + Vector3.up * 2f, amount);
+
 
         if(curHP <= 0 )
         {

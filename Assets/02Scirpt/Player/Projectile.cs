@@ -12,15 +12,13 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        if(target == null)
+        {
+            Destroy(gameObject);
+        }
+
         Vector3 dir = (target.position - transform.position).normalized;
         transform.position += dir * speed * Time.deltaTime;
-
-
-        float dist = Vector3.Distance(transform.position, target.position);
-        if(dist < 0.3f)
-        {
-            
-        }
     }
 
 

@@ -14,8 +14,14 @@ public class UIManager : MonoBehaviour
     Slider ShieldSlider;
     Slider playerShieldSlider;
 
+    Button menuBTN;
+
     GameObject ShieldObj;
     GameObject playerShield;
+
+    Image[] skillIcons;
+
+    [SerializeField] GameObject menuUI;
 
     GameObject _player;
 
@@ -43,8 +49,12 @@ public class UIManager : MonoBehaviour
 
         playerManaSlider = GameObject.Find("PlayerManaBar").GetComponent<Slider>();
         playerHPSlider = GameObject.Find("PlayerHPBar").GetComponent<Slider>();
-        
 
+        menuBTN = GameObject.Find("MenuBTN").GetComponent<Button>();
+        menuBTN.onClick.AddListener(MenuClick);
+
+        menuUI = GameObject.Find("Menu");
+        menuUI.SetActive(false);
         _player = GameObject.Find("Player");
         skillManager = FindAnyObjectByType<SkillManager>();
 
@@ -126,4 +136,28 @@ public class UIManager : MonoBehaviour
         if (index < 0 || index >= skillManaText.Length) return;
         skillManaText[index].text = skills.manaCost.ToString();
     }
+
+
+
+    public void MenuClick()
+    {
+        skillManager.isSwappingSkill = true;
+        menuUI.SetActive(true);
+    }
+
+    public void MenuExit()
+    {
+        skillManager.isSwappingSkill = false;
+        menuUI.SetActive(false);
+    }
+    //public void UpdateSkillUI()
+    //{
+    //    for (int i = 0; i < skillIcons.Length; i++)
+    //    {
+    //        SkillBase skill = skillManager.euqippedSkills[i];
+    //        skillIcons[i].sprite = skill.skillIcon;
+    //        skillManaText[i].text = skill.manaCost.ToString();
+    //    }
+    //}
+
 }

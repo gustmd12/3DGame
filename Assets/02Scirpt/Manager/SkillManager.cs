@@ -17,6 +17,8 @@ public class SkillManager : MonoBehaviour
 
     private float[] cooldownTimer = new float[4];
 
+    private int selectSkillSlot = -1;
+
     Player player;
 
     GameObject _player;
@@ -40,6 +42,8 @@ public class SkillManager : MonoBehaviour
 
     CharAnimManager charAnimManager;
     AnimatorController animatorController;
+
+    public bool isSwappingSkill = false;
     
     private Dictionary<KeyCode, SkillSlot> keySkillmap = new Dictionary<KeyCode, SkillSlot>
     {
@@ -52,6 +56,8 @@ public class SkillManager : MonoBehaviour
 
     private void HandleInput()
     {
+        if (isSwappingSkill) return;
+
         foreach (var entry in keySkillmap)
         {
             if(Input.GetKeyDown(entry.Key))
@@ -79,6 +85,7 @@ public class SkillManager : MonoBehaviour
                         TryCastSkill(skillIndex);
                         break;
                     case SkillBase.SkillType.Area:
+                        TryCastSkill(skillIndex);
                         animatorController.SetInt("animation,4");
                         break;
                     default:
@@ -250,4 +257,32 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+
+    //public void onSkillSlotClick(int slotindex)
+    //{
+    //    if(selectSkillSlot == -1)
+    //    {
+    //        selectSkillSlot = slotindex;
+
+    //    }
+    //    else
+    //    {
+    //        SwapSkill(selectSkillSlot, slotindex);
+    //        selectSkillSlot = -1;
+    //    }
+    //}
+
+    //private void SwapSkill(int indexA, int indexB)
+    //{
+    //    var temp = euqippedSkills[indexA];
+    //    euqippedSkills[indexA] = euqippedSkills[indexB];
+    //    euqippedSkills[indexB] = temp;
+
+    //    uimanager.SetMana(indexA, euqippedSkills[indexA]);
+    //    uimanager.SetMana(indexB, euqippedSkills[indexB]);
+
+    //    Debug.Log("변경 되었습니다");
+    //}
+
+    
 }

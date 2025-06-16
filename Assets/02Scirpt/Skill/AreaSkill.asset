@@ -17,6 +17,7 @@ MonoBehaviour:
   manaCost: 25
   skillDamage: 30
   skilltype: 3
+  skillIcon: {fileID: 21300000, guid: 21e8c3d2daeffd044b91e08f918eaba9, type: 3}
   radius: 2
   enemyLayer:
     serializedVersion: 2

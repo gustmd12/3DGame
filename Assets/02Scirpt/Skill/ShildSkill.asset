@@ -15,5 +15,7 @@ MonoBehaviour:
   skillName: ShilldSkill
   cooldown: 8
   manaCost: 10
+  skillDamage: 0
   skilltype: 2
+  skillIcon: {fileID: 21300000, guid: 22a867f2854984341a2866b952a6fa1d, type: 3}
   shildPre: {fileID: 173814, guid: 810eb771809ba56409dd29eab937ddb2, type: 3}

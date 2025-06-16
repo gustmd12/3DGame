@@ -78,7 +78,7 @@ public class CharAnimManager : MonoBehaviour
             case "Effect":
                 break;
             case "RSkill":
-                skillManager.TryCastSkill(3);
+                //skillManager.TryCastSkill(3);
                 break;
             case "Attack":
                 break;

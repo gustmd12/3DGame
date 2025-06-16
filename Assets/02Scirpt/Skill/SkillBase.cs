@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "SkillBase", menuName = "Scriptable Objects/SkillBase")]
 public abstract class SkillBase : ScriptableObject
@@ -8,7 +9,7 @@ public abstract class SkillBase : ScriptableObject
     public int manaCost;
     public float skillDamage;
     public SkillType skilltype;
-
+    public Sprite skillIcon;
     public enum SkillType
     {
         Target,
