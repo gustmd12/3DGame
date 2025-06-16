@@ -257,32 +257,14 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-
-    //public void onSkillSlotClick(int slotindex)
-    //{
-    //    if(selectSkillSlot == -1)
-    //    {
-    //        selectSkillSlot = slotindex;
-
-    //    }
-    //    else
-    //    {
-    //        SwapSkill(selectSkillSlot, slotindex);
-    //        selectSkillSlot = -1;
-    //    }
-    //}
-
-    //private void SwapSkill(int indexA, int indexB)
-    //{
-    //    var temp = euqippedSkills[indexA];
-    //    euqippedSkills[indexA] = euqippedSkills[indexB];
-    //    euqippedSkills[indexB] = temp;
-
-    //    uimanager.SetMana(indexA, euqippedSkills[indexA]);
-    //    uimanager.SetMana(indexB, euqippedSkills[indexB]);
-
-    //    Debug.Log("변경 되었습니다");
-    //}
-
-    
+    public bool SkillonCooldown()
+    {
+        for (int i = 0; i < cooldownTimer.Length; i++)
+        {
+            if (cooldownTimer[i] > 0f)
+                return true;
+        }
+           return false;
+        
+    }
 }

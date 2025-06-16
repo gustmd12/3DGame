@@ -141,23 +141,19 @@ public class UIManager : MonoBehaviour
 
     public void MenuClick()
     {
+        if(skillManager.SkillonCooldown())
+        {
+            Debug.Log("스킬 쿨타임중에 열수없습니다");
+            return;
+        }
         skillManager.isSwappingSkill = true;
         menuUI.SetActive(true);
     }
-
+    
     public void MenuExit()
     {
         skillManager.isSwappingSkill = false;
         menuUI.SetActive(false);
     }
-    //public void UpdateSkillUI()
-    //{
-    //    for (int i = 0; i < skillIcons.Length; i++)
-    //    {
-    //        SkillBase skill = skillManager.euqippedSkills[i];
-    //        skillIcons[i].sprite = skill.skillIcon;
-    //        skillManaText[i].text = skill.manaCost.ToString();
-    //    }
-    //}
-
+    
 }

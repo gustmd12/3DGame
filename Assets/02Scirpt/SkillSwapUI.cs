@@ -8,7 +8,10 @@ public class SkillSwapUI : MonoBehaviour
     [SerializeField] private Button[] skillSlotButtons;         
     [SerializeField] private Image[] skillSlotIcons;            
     [SerializeField] private Image[] skillSlotIcons2;            
-    [SerializeField] private TextMeshProUGUI[] skillManaTexts;  
+    [SerializeField] private TextMeshProUGUI[] skillManaTexts;
+    [SerializeField] Outline[] skilloutlines;
+
+    OutlineBlink outlineBlink;
 
     [SerializeField] private SkillManager skillManager;
 
@@ -21,6 +24,11 @@ public class SkillSwapUI : MonoBehaviour
         { KeyCode.E, 2 },
         { KeyCode.R, 3 }
     };
+
+    private void Awake()
+    {
+        outlineBlink = FindAnyObjectByType<OutlineBlink>();
+    }
 
     private void Start()
     {
@@ -44,6 +52,7 @@ public class SkillSwapUI : MonoBehaviour
                 int targetIndex = pair.Value;
                 SwapSkills(selectedSlotIndex, targetIndex);
                 selectedSlotIndex = -1;
+                outlineBlink.ClearSelect();
                 break;
             }
         }
@@ -52,6 +61,7 @@ public class SkillSwapUI : MonoBehaviour
     private void OnSkillSlotButtonClicked(int index)
     {
         selectedSlotIndex = index;
+        outlineBlink.SelectBTN(index);
         Debug.Log($"Ω∫≈≥ ΩΩ∑‘ {index} º±≈√µ ");
     }
 
