@@ -71,12 +71,5 @@ public class ProjectileSkill : SkillBase
         }
                 
     }
-        
-
-    private void Awake()
-    {
-       
-        
-    }
-
+    
 }

@@ -18,9 +18,9 @@ public class CursorChange : MonoBehaviour
     {
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
-        if(Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.GetComponent<Enemy>() != null)
+            if (hit.collider.GetComponent<Enemy>() != null || hit.collider.GetComponent<BossAI>())
             {
                 Cursor.SetCursor(enemyCusor,hotSpot,cursorMode);
                 return;

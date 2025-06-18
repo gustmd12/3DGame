@@ -39,7 +39,7 @@ public class ConeSkill : SkillBase
 
         foreach (Collider hita in hits )
         {
-            Vector3 dirToTarget = (hita.transform.position - origin).normalized;
+            Vector3 dirToTarget = (hita.bounds.center - origin).normalized;
             float angleToTarget = Vector3.Angle(forward, dirToTarget);
 
             if(angleToTarget < angle / 2f)
@@ -53,9 +53,6 @@ public class ConeSkill : SkillBase
         }
         GameObject fx = Instantiate(effectpre, effectPos, rot);
         GameObject.Destroy(fx, 0.7f);
-
-        
-
         
     }
 }

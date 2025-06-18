@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class EnemyUI : MonoBehaviour
 {
     Enemy target;
+    BossAI targetboss;
     RectTransform rectTransform;
 
     [SerializeField] Slider hpSlider;
