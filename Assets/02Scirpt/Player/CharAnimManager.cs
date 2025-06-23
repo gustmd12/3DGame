@@ -63,6 +63,14 @@ public class CharAnimManager : MonoBehaviour
             ExecuteTimedEvent(currentEvents[currentIndex]);
             currentIndex++;
         }
+
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        //if(stateInfo.IsName(currentAnimStateName) && stateInfo.normalizedTime >= 0.99f)
+        //{
+        //    animator.SetInteger("animation", 1);
+        //    isPlaying = false;
+        //}
+
     }
 
     private void ExecuteTimedEvent(TimedEvent evt)

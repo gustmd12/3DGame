@@ -4,7 +4,7 @@ public class DamageTextSpawner : MonoBehaviour
 {
     [SerializeField] Canvas maincanvas;
 
-    public void ShowDamamge(Vector3 worldPos, float damage)
+    public void ShowDamage(Vector3 worldPos, float damage)
     {
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 

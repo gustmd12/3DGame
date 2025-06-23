@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class BossAI : MonoBehaviour, IDamaged
 {
-    public float dictectionRange = 5f;
+    public float dictectionRange = 30f;
+    public float disengageRange = 35f;
     [SerializeField] Transform player;
 
     private bool isEngaged = false;
+    private bool isAttacking = false;
     private float attackCooldown = 2f;
     private float cooldownTimer = 0f;
 
@@ -39,7 +41,7 @@ public class BossAI : MonoBehaviour, IDamaged
 
         Debug.Log($"몬스터의 남은 체력 : {curHP}");
         eventBus.OnBossHPChanged?.Invoke(this);
-        damageTextSpawner.ShowDamamge(transform.position + Vector3.up * 2f, amount);
+        damageTextSpawner.ShowDamage(transform.position + Vector3.up * 2f, amount);
 
         if (curHP <= 0)
         {
@@ -63,6 +65,13 @@ public class BossAI : MonoBehaviour, IDamaged
             Debug.Log("플레이어 감지");
         }
 
+        if(isEngaged && dist > disengageRange && !isAttacking)
+        {
+            isEngaged = false;
+            Debug.Log("플레이어 이탈");
+        }
+
+
         if(isEngaged)
         {
             cooldownTimer -= Time.deltaTime;
@@ -77,17 +86,21 @@ public class BossAI : MonoBehaviour, IDamaged
 
     void UseRandomAttackPattern()
     {
-        int pattern = Random.Range(0, 3);
+        int pattern = Random.Range(0, 4);
 
         switch (pattern)
         {
             case 0:
+                Debug.Log("1번 패턴");
                 break;
             case 1:
+                Debug.Log("2번 패턴");
                 break;
             case 2:
+                Debug.Log("3번 패턴");
                 break;
             case 3:
+                Debug.Log("4번 패턴");
                 break;
 
         }
