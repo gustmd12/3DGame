@@ -75,6 +75,7 @@ public class UIManager : MonoBehaviour
         if(eventBus != null)
         {
             eventBus.OnManaChanged += UpdateMana;
+            eventBus.OnHPChanged += UpdateHP;
         }
     }
 
@@ -83,6 +84,7 @@ public class UIManager : MonoBehaviour
         if(eventBus != null)
         {
             eventBus.OnManaChanged -= UpdateMana;
+            eventBus.OnHPChanged -= UpdateHP;
         }
     }
 
@@ -112,6 +114,13 @@ public class UIManager : MonoBehaviour
         manaslider.value = player.curMP;
         playerManaSlider.value = player.curMP;
         manaText.text = $"{player.curMP:F0}";
+    }
+
+    private void UpdateHP()
+    {
+        hpslider.value = player.curHP;
+        playerHPSlider.value = player.curHP;
+        hpText.text = $"{player.curHP:F0}";
     }
 
     private void InitStats(float maxMP,float maxHP)

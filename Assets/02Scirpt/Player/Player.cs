@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamaged
 {
     public float maxHP = 100;
     public float maxMP = 100;
@@ -49,5 +49,15 @@ public class Player : MonoBehaviour
             
     }
 
-    
+    public void TakeDamage(float amount)
+    {
+        curHP -= amount;
+
+
+
+        if(curHP < 0)
+        {
+            Debug.Log("»ç¸Á");
+        }
+    }
 }

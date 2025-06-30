@@ -20,12 +20,17 @@ public class BossAI : MonoBehaviour, IDamaged
     DamageTextSpawner damageTextSpawner;
     BossUIManager bossUIManager;
 
+    private BossPatternExecutor executor;
+    private float timer;
+
     private void Awake()
     {
         damageTextSpawner = FindAnyObjectByType<DamageTextSpawner>();
         bossUIManager = FindAnyObjectByType<BossUIManager>();
         eventBus = FindAnyObjectByType<EventBus>();
         curHP = maxHP;
+
+        executor = GetComponent<BossPatternExecutor>();
     }
 
     private void Start()
@@ -63,6 +68,12 @@ public class BossAI : MonoBehaviour, IDamaged
         {
             isEngaged = true;
             Debug.Log("플레이어 감지");
+            timer -= Time.deltaTime;
+            if (timer <= 0f)
+            {
+                executor.ExecuteRandomExecute();
+                timer = attackCooldown;
+            }
         }
 
         if(isEngaged && dist > disengageRange && !isAttacking)
@@ -82,6 +93,11 @@ public class BossAI : MonoBehaviour, IDamaged
                 cooldownTimer = attackCooldown;
             }
         }
+
+        if(Vector3.Distance(transform.position, player.position) < dist)
+        {
+            
+        }
     }
 
     void UseRandomAttackPattern()
@@ -91,16 +107,16 @@ public class BossAI : MonoBehaviour, IDamaged
         switch (pattern)
         {
             case 0:
-                Debug.Log("1번 패턴");
+                //Debug.Log("1번 패턴");
                 break;
             case 1:
-                Debug.Log("2번 패턴");
+                //Debug.Log("2번 패턴");
                 break;
             case 2:
-                Debug.Log("3번 패턴");
+                //Debug.Log("3번 패턴");
                 break;
             case 3:
-                Debug.Log("4번 패턴");
+                //Debug.Log("4번 패턴");
                 break;
 
         }
