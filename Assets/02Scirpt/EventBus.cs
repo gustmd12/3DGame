@@ -14,7 +14,7 @@ public class EventBus : MonoBehaviour
     public Action<BossAI> OnBossHPChanged;
     public Action<BossAI> OnBossDied;
 
-    public Action<Player> OnPlayerHPChanged;
+    public Action OnPlayerHPChanged;
 
 
     public static void SkillCastStart() => OnSkillStart?.Invoke();
@@ -23,7 +23,7 @@ public class EventBus : MonoBehaviour
     public void ManaChanged() => OnManaChanged?.Invoke();
     public void HPChanged() => OnHPChanged?.Invoke();
 
-    public void PlayerHPChanged(Player player) => OnPlayerHPChanged?.Invoke(player);
+    public void PlayerHPChanged() => OnPlayerHPChanged?.Invoke();
 
     public void RaiseEnemyHPChanged(Enemy enemy) => OnEnemyHPChanged?.Invoke(enemy);
     public void RaiseEnemyDied(Enemy enemy) => OnEnemyDied?.Invoke(enemy);

@@ -53,19 +53,20 @@ public class PlayerShild : MonoBehaviour
 
     public float AbsorbDamage(float damage)
     {
-        if(currentShild > 0f)
+        if (currentShild <= 0f)
+            return damage;
+
+        float absorbed = Mathf.Min(damage, currentShild);
+        currentShild -= absorbed;
+
+        Debug.Log($"½¯µå°¡ {absorbed} µ¥¹ÌÁö¸¦ Èí¼ö, ³²Àº ½¯µå: {currentShild}");
+
+        if (currentShild <= 0f && shieldpre != null)
         {
-            float absorbed = Mathf.Min(damage, currentShild);
-            currentShild -= absorbed;
-
-            if(currentShild <= 0f)
-            {
-                Destroy(shieldpre);
-            }
-
-            return damage - absorbed;
+            Destroy(shieldpre);
+            Debug.Log("½¯µå ÆÄ±«");
         }
 
-        return damage;
+        return damage - absorbed; 
     }
 }

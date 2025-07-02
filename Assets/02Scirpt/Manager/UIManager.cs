@@ -75,7 +75,7 @@ public class UIManager : MonoBehaviour
         if(eventBus != null)
         {
             eventBus.OnManaChanged += UpdateMana;
-            eventBus.OnHPChanged += UpdateHP;
+            eventBus.OnPlayerHPChanged += UpdateHP;
         }
     }
 
@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
         if(eventBus != null)
         {
             eventBus.OnManaChanged -= UpdateMana;
-            eventBus.OnHPChanged -= UpdateHP;
+            eventBus.OnPlayerHPChanged -= UpdateHP;
         }
     }
 

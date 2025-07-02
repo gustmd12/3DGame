@@ -12,12 +12,15 @@ public class Player : MonoBehaviour, IDamaged
 
     public int manaRegen = 2;
 
+    PlayerShild playerShild;
     private void Awake()
     {
         eventBus = FindAnyObjectByType<EventBus>();
 
         curHP = maxHP;
         curMP = maxMP;
+
+        playerShild = GetComponent<PlayerShild>();
     }
 
     void Update()
@@ -51,10 +54,15 @@ public class Player : MonoBehaviour, IDamaged
 
     public void TakeDamage(float amount)
     {
+        if(playerShild != null)
+        {
+            amount = playerShild.AbsorbDamage(amount);
+        }
+
         curHP -= amount;
+        Debug.Log($"플레이어의 남은 체력 : {curHP}");
 
-
-
+        eventBus.OnPlayerHPChanged?.Invoke();
         if(curHP < 0)
         {
             Debug.Log("사망");

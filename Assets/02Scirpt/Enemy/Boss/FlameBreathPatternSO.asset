@@ -9,9 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1eacb4fe98040e5438e305ead07ad232, type: 3}
-  m_Name: BossLaserPateern
+  m_Script: {fileID: 11500000, guid: c8e95082e5c2f0c4bbaf900cb049a923, type: 3}
+  m_Name: FlameBreathPatternSO
   m_EditorClassIdentifier: 
   pattternName: LaserPattern
   delayBeforExecute: 1
-  LaserPrefab: {fileID: 130238, guid: 9a5fb82b90aeeed449cc9e1a5ca2ac29, type: 3}
+  range: 6
+  angle: 60
+  damagePerSecond: 10
+  duration: 3
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 128
+  flameEffectPrefab: {fileID: 126656, guid: 7a59dbad522a0e443afbd995ada3fa01, type: 3}

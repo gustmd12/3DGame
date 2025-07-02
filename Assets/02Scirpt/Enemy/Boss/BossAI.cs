@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BossAI : MonoBehaviour, IDamaged
 {
-    public float dictectionRange = 30f;
+    public float dictectionRange = 60f;
     public float disengageRange = 35f;
     [SerializeField] Transform player;
 
@@ -14,20 +14,26 @@ public class BossAI : MonoBehaviour, IDamaged
     private float attackCooldown = 2f;
     private float cooldownTimer = 0f;
 
+    private float flameCooldown = 6f;
+    private float flameTimer = 0f;
+
     public float maxHP = 150f;
     public float curHP;
     EventBus eventBus;
     DamageTextSpawner damageTextSpawner;
     BossUIManager bossUIManager;
 
+
+
     private BossPatternExecutor executor;
     private float timer;
-
+    [SerializeField] private FlameBreathPatternSO flameBreathPattern;
     private void Awake()
     {
         damageTextSpawner = FindAnyObjectByType<DamageTextSpawner>();
         bossUIManager = FindAnyObjectByType<BossUIManager>();
         eventBus = FindAnyObjectByType<EventBus>();
+
         curHP = maxHP;
 
         executor = GetComponent<BossPatternExecutor>();
@@ -71,7 +77,7 @@ public class BossAI : MonoBehaviour, IDamaged
             timer -= Time.deltaTime;
             if (timer <= 0f)
             {
-                executor.ExecuteRandomExecute();
+                //executor.ExecuteRandomExecute();
                 timer = attackCooldown;
             }
         }
@@ -94,10 +100,17 @@ public class BossAI : MonoBehaviour, IDamaged
             }
         }
 
-        if(Vector3.Distance(transform.position, player.position) < dist)
+        if (isEngaged)
         {
-            
+            flameTimer -= Time.deltaTime;
+
+            if (flameTimer <= 0f)
+            {
+                GetComponent<BossFlameBreath>().StartFlameBreath(flameBreathPattern);
+                flameTimer = flameCooldown;
+            }
         }
+
     }
 
     void UseRandomAttackPattern()
