@@ -14,4 +14,14 @@ public class BossAnimationController : MonoBehaviour
     {
         animator.SetTrigger("Breath");
     }
+
+    public void MeteorAnim()
+    {
+        animator.SetTrigger("Meteor");
+    }
+
+    public void DieAnim()
+    {
+        animator.SetTrigger("Die");
+    }
 }

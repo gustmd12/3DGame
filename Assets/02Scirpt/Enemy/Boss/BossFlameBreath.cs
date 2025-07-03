@@ -5,7 +5,6 @@ using UnityEngine;
 public class BossFlameBreath : MonoBehaviour
 {
     [SerializeField] Transform spawnPos;
-    //private Vector3 offset = new Vector3(0, 2, 4);
 
     private Coroutine flameRoutine;
 
@@ -35,11 +34,6 @@ public class BossFlameBreath : MonoBehaviour
             lookDir.y = 0f;
             transform.forward = lookDir;
         }
-
-        //Vector3 spawnPos = transform.position
-        //                 + transform.forward * offset.z
-        //                 + transform.up * offset.y
-        //                 + transform.right * offset.x;
 
         GameObject flameVFX = null;
         if(pattern.flameEffectPrefab != null)

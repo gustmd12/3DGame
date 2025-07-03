@@ -5,19 +5,35 @@ using UnityEngine;
 
 public class BossPatternExecutor : MonoBehaviour
 {
+    BossPatternSO bossPatternSO;
+
     [SerializeField] BossPatternSO[] patternList;
 
-    public void ExecuteRandomExecute()
-    {
-        int index = Random.Range(0, patternList.Length);
-        StartCoroutine(ExecuteWithDelay(patternList[index]));
+    //public void ExecuteRandomExecute()
+    //{
+    //    int index = Random.Range(0, patternList.Length);
+    //    StartCoroutine(ExecuteWithDelay(patternList[index]));
         
-    }
+    //}
 
-    private IEnumerator ExecuteWithDelay(BossPatternSO pattern)
+    //private IEnumerator ExecuteWithDelay(BossPatternSO pattern)
+    //{
+    //    yield return new WaitForSeconds(pattern.delayBeforExecute);
+    //    pattern.Execute(gameObject);
+    //}
+
+    public void Execute(BossPatternSO pattern)
     {
-        yield return new WaitForSeconds(pattern.delayBeforExecute);
-        pattern.Execute(gameObject);
+        switch (pattern.Type)
+        {
+            case PatternType.FlameBreath:
+                GetComponent<BossFlameBreath>()?.StartFlameBreath((FlameBreathPatternSO)pattern);
+                break;
+            case PatternType.MeteorStrike:
+                GetComponent<MeteorStrikePattern>()?.StartMeteorStrike((MeteorStrikePatternSO)pattern);
+                break;
+        }
+
     }
 
 }

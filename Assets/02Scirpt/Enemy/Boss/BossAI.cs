@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Security.Cryptography;
 using Unity.VisualScripting;
@@ -19,20 +21,29 @@ public class BossAI : MonoBehaviour, IDamaged
 
     public float maxHP = 150f;
     public float curHP;
+
+    private int currentPatternIndex = 0;
+    private float patternTimer = 0;
+
     EventBus eventBus;
     DamageTextSpawner damageTextSpawner;
     BossUIManager bossUIManager;
 
-
+    BossAnimationController bossAnimationController;
 
     private BossPatternExecutor executor;
     private float timer;
-    [SerializeField] private FlameBreathPatternSO flameBreathPattern;
+    //[SerializeField] private FlameBreathPatternSO flameBreathPattern;
+    [SerializeField] private List<BossPatternSO> patternList;
+    private BossPatternSO lastUsedPattern = null;
+
+
     private void Awake()
     {
         damageTextSpawner = FindAnyObjectByType<DamageTextSpawner>();
         bossUIManager = FindAnyObjectByType<BossUIManager>();
         eventBus = FindAnyObjectByType<EventBus>();
+        bossAnimationController = GetComponent<BossAnimationController>();
 
         curHP = maxHP;
 
@@ -57,12 +68,15 @@ public class BossAI : MonoBehaviour, IDamaged
         if (curHP <= 0)
         {
             eventBus.OnBossDied?.Invoke(this);
-            Die();
+            StartCoroutine(Die()); 
         }
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+        isEngaged = false;
+        bossAnimationController.DieAnim();
+        yield return new WaitForSeconds(3f);
         Destroy(gameObject);
     }
 
@@ -74,12 +88,8 @@ public class BossAI : MonoBehaviour, IDamaged
         {
             isEngaged = true;
             Debug.Log("플레이어 감지");
-            timer -= Time.deltaTime;
-            if (timer <= 0f)
-            {
-                //executor.ExecuteRandomExecute();
-                timer = attackCooldown;
-            }
+            //ExecuteRandomPattern();
+            patternTimer = 0f;
         }
 
         if(isEngaged && dist > disengageRange && !isAttacking)
@@ -89,50 +99,68 @@ public class BossAI : MonoBehaviour, IDamaged
         }
 
 
-        if(isEngaged)
-        {
-            cooldownTimer -= Time.deltaTime;
-
-            if (cooldownTimer <= 0f)
-            {
-                UseRandomAttackPattern();
-                cooldownTimer = attackCooldown;
-            }
-        }
-
         if (isEngaged)
         {
-            flameTimer -= Time.deltaTime;
+            patternTimer -= Time.deltaTime;
 
-            if (flameTimer <= 0f)
+            if (patternTimer <= 0f)
             {
-                GetComponent<BossFlameBreath>().StartFlameBreath(flameBreathPattern);
+                ExecuteRandomPattern();
                 flameTimer = flameCooldown;
             }
         }
 
     }
 
-    void UseRandomAttackPattern()
-    {
-        int pattern = Random.Range(0, 4);
 
-        switch (pattern)
+    private void TryExecutePattern()
+    {
+        if (patternList == null || patternList.Count == 0) return;
+
+        for(int i = 0; i < patternList.Count; i++)
         {
-            case 0:
-                //Debug.Log("1번 패턴");
-                break;
-            case 1:
-                //Debug.Log("2번 패턴");
-                break;
-            case 2:
-                //Debug.Log("3번 패턴");
-                break;
-            case 3:
-                //Debug.Log("4번 패턴");
-                break;
+            int index = (currentPatternIndex + i) % patternList.Count;
+            var pattern = patternList[index];
+
+            bool hpCondition = pattern.triggerHPPercent <= 0f || curHP <= maxHP * pattern.triggerHPPercent;
+
+            if (hpCondition)
+            {
+                executor.Execute(pattern);
+                patternTimer = pattern.coolDown;
+                currentPatternIndex = (index + 1) % patternList.Count;
+                return;
+            }
+        }
+    }
+    
+    private void ExecuteRandomPattern()
+    {
+        if (patternList == null || patternList.Count == 0) return;
+
+        List<BossPatternSO> usablePatterns = new List<BossPatternSO> ();
+        foreach(var pattern in patternList)
+        {
+            bool hpCondition = pattern.triggerHPPercent <= 0f || curHP <= maxHP * pattern.triggerHPPercent;
+
+            if(hpCondition && pattern != lastUsedPattern)
+            {
+                usablePatterns.Add(pattern);
+            }
 
         }
 
+        if (usablePatterns.Count == 0)
+        {
+            usablePatterns.AddRange(patternList.FindAll(p =>
+                p.triggerHPPercent <= 0f || curHP <= maxHP * p.triggerHPPercent));
+        }
+        
+        var selected = usablePatterns[Random.Range(0, usablePatterns.Count)];
+
+        executor.Execute(selected);
+        patternTimer = selected.coolDown;
+
+        lastUsedPattern = selected;
     }
 }
