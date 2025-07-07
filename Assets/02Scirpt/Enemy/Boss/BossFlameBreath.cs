@@ -82,8 +82,6 @@ public class BossFlameBreath : MonoBehaviour
                 {
                     float damageThisFrame = pattern.damagePerSecond * Time.deltaTime;
                     damaged.TakeDamage(damageThisFrame);
-
-                    Debug.Log($"브레스 히트{col.name}");
                 }
             }
         }

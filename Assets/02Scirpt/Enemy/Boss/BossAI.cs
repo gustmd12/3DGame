@@ -75,6 +75,7 @@ public class BossAI : MonoBehaviour, IDamaged
     private IEnumerator Die()
     {
         isEngaged = false;
+        isAttacking = false;
         bossAnimationController.DieAnim();
         yield return new WaitForSeconds(3f);
         Destroy(gameObject);
@@ -136,6 +137,7 @@ public class BossAI : MonoBehaviour, IDamaged
     
     private void ExecuteRandomPattern()
     {
+
         if (patternList == null || patternList.Count == 0) return;
 
         List<BossPatternSO> usablePatterns = new List<BossPatternSO> ();

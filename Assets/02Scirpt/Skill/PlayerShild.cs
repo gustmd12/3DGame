@@ -1,8 +1,9 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerShild : MonoBehaviour
 {
-    private float currentShild;
+    public float currentShild;
     private float shildTimer;
 
     GameObject shieldpre;
@@ -11,9 +12,11 @@ public class PlayerShild : MonoBehaviour
 
     UIManager uIManager;
 
+    EventBus eventBus;
     private void Awake()
     {
         uIManager = FindAnyObjectByType<UIManager>();
+        eventBus = FindAnyObjectByType<EventBus>();
     }
 
     private void Update()
@@ -60,10 +63,11 @@ public class PlayerShild : MonoBehaviour
         currentShild -= absorbed;
 
         Debug.Log($"½¯µå°¡ {absorbed} µ¥¹ÌÁö¸¦ Èí¼ö, ³²Àº ½¯µå: {currentShild}");
-
+        eventBus.OnPlayerShieldChanged?.Invoke(currentShild);
         if (currentShild <= 0f && shieldpre != null)
         {
             Destroy(shieldpre);
+            uIManager.DestroyShield();
             Debug.Log("½¯µå ÆÄ±«");
         }
 

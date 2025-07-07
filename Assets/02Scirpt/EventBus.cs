@@ -16,6 +16,8 @@ public class EventBus : MonoBehaviour
 
     public Action OnPlayerHPChanged;
 
+    public Action<float> OnPlayerShieldChanged;
+
 
     public static void SkillCastStart() => OnSkillStart?.Invoke();
     public static void SkillCastEnd() => OnSkillEnd?.Invoke();
@@ -32,5 +34,6 @@ public class EventBus : MonoBehaviour
 
     public void BossDied(BossAI boss) => OnBossDied?.Invoke(boss);
 
+    public void ShieldChanged(float amount) => OnPlayerShieldChanged?.Invoke(amount);
 
 }

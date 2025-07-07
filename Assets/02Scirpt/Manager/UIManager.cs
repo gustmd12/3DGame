@@ -34,6 +34,8 @@ public class UIManager : MonoBehaviour
     EventBus eventBus;
 
     SkillManager skillManager;
+
+    ShildSkill shildSkill;
     
     private void Awake()
     {
@@ -66,6 +68,8 @@ public class UIManager : MonoBehaviour
 
         InitStats(player.maxMP,player.maxHP);
 
+        //shildSkill = _player.GetComponent<ShildSkill>();
+
         ShieldObj.SetActive(false);
         playerShield.SetActive(false);
     }
@@ -76,6 +80,7 @@ public class UIManager : MonoBehaviour
         {
             eventBus.OnManaChanged += UpdateMana;
             eventBus.OnPlayerHPChanged += UpdateHP;
+            eventBus.OnPlayerShieldChanged += UpdateShield;
         }
     }
 
@@ -85,6 +90,7 @@ public class UIManager : MonoBehaviour
         {
             eventBus.OnManaChanged -= UpdateMana;
             eventBus.OnPlayerHPChanged -= UpdateHP;
+            eventBus.OnPlayerShieldChanged -= UpdateShield;
         }
     }
 
@@ -98,7 +104,8 @@ public class UIManager : MonoBehaviour
             if(!playerShield.activeSelf)
                 playerShield.SetActive(true);
             
-            shieldText.text = $"{amount}";
+            shieldText.text = $"{amount:F1}";
+            playerShieldSlider.value = shield;
         }
         else
         {
@@ -108,7 +115,13 @@ public class UIManager : MonoBehaviour
                 playerShield.SetActive(false);
         }
     }
-
+    public void DestroyShield()
+    {
+        if (ShieldObj.activeSelf)
+            ShieldObj.SetActive(false);
+        if (playerShield.activeSelf)
+            playerShield.SetActive(false);
+    }
     private void UpdateMana()
     {
         manaslider.value = player.curMP;
@@ -134,6 +147,11 @@ public class UIManager : MonoBehaviour
         playerManaSlider.value = maxMP;
         playerHPSlider.maxValue = maxHP;
         playerHPSlider.value = maxHP;
+
+        //ShieldSlider.maxValue = shildSkill.shildAmount;
+        //ShieldSlider.value = 0;
+        //playerShieldSlider.maxValue = shildSkill.shildAmount;
+        //playerShieldSlider.value = 0;
 
         manaText.text = maxMP.ToString();
         hpText.text = maxHP.ToString();

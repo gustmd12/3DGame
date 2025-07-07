@@ -15,8 +15,6 @@ public class EnemyManager : MonoBehaviour
         eventBus = FindAnyObjectByType<EventBus>();
 
         Boss.SetActive(false);
-
-        Debug.Log($"몬스터의 수 {enemies.Count}");
     }
     
 
