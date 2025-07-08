@@ -67,4 +67,15 @@ public class MeteorStrikePattern : MonoBehaviour
         if (meteor != null)
             Destroy(meteor, 3f);
     }
+
+    public void StopMeteor()
+    {
+        if(meteorRoutine != null)
+        {
+            StopCoroutine(meteorRoutine);
+            meteorRoutine = null;
+        }
+        
+    }
+
 }

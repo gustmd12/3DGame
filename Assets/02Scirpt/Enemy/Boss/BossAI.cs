@@ -76,8 +76,10 @@ public class BossAI : MonoBehaviour, IDamaged
     {
         isEngaged = false;
         isAttacking = false;
+        executor.StopAllPattern();
         bossAnimationController.DieAnim();
         yield return new WaitForSeconds(3f);
+
         Destroy(gameObject);
     }
 

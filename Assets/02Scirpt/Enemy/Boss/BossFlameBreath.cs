@@ -9,6 +9,8 @@ public class BossFlameBreath : MonoBehaviour
     private Coroutine flameRoutine;
 
     private BossAnimationController bossAnimationController;
+
+    GameObject flameVFX = null;
     public void StartFlameBreath(FlameBreathPatternSO pattern)
     {
         if(flameRoutine != null)
@@ -23,6 +25,14 @@ public class BossFlameBreath : MonoBehaviour
         bossAnimationController = GetComponent<BossAnimationController>();
     }
 
+    public void DestroyEffect()
+    {
+        if(flameVFX != null)
+        {
+            Destroy(flameVFX);
+        }
+    }
+
     private IEnumerator FlameRoutine(FlameBreathPatternSO pattern)
     {
         bossAnimationController.BreathAnim();
@@ -35,7 +45,7 @@ public class BossFlameBreath : MonoBehaviour
             transform.forward = lookDir;
         }
 
-        GameObject flameVFX = null;
+        
         if(pattern.flameEffectPrefab != null)
         {
             flameVFX = Instantiate(pattern.flameEffectPrefab, spawnPos.position, transform.rotation, transform);
@@ -86,5 +96,14 @@ public class BossFlameBreath : MonoBehaviour
             }
         }
 
+    }
+
+    public void StopBreath()
+    {
+        if(flameRoutine != null)
+        {
+            StopCoroutine(flameRoutine);
+            flameRoutine = null;
+        }
     }
 }

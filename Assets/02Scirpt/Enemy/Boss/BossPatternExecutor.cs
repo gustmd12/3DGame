@@ -24,4 +24,10 @@ public class BossPatternExecutor : MonoBehaviour
 
     }
 
+    public void StopAllPattern()
+    {
+        GetComponent<BossFlameBreath>()?.StopBreath();
+        GetComponent<MeteorStrikePattern>()?.StopMeteor();
+    }
+
 }
